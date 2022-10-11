@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>730609678706-c93r7umqsjh04b2ikafn1620tghpaphd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.730609678706-c93r7umqsjh04b2ikafn1620tghpaphd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>730609678706-uqpqdc22fdtq9sbjmbp3l3gbliqsra60.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDM5QIX-SR5tHqx_SQLRwUVmCAOAtBB-TM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>730609678706</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.weloveflutterflow.aetherius</string>
+	<key>PROJECT_ID</key>
+	<string>aetherius-2237e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aetherius-2237e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:730609678706:ios:7d41f3d8689483888d05eb</string>
+</dict>
+</plist>

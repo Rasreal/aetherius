@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "730609678706",
+    "project_id": "aetherius-2237e",
+    "storage_bucket": "aetherius-2237e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730609678706:android:db2901c5c664ea408d05eb",
+        "android_client_info": {
+          "package_name": "com.weloveflutterflow.aetherius"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730609678706-uqpqdc22fdtq9sbjmbp3l3gbliqsra60.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.weloveflutterflow.aetherius",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "730609678706-3no67c94eascmfq3b2kips292n5mc3ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqwD0EsJDEMAQl2jaTGAQNLOOGVyYsWDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730609678706-3no67c94eascmfq3b2kips292n5mc3ho.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "730609678706-c93r7umqsjh04b2ikafn1620tghpaphd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.weloveflutterflow.aetherius"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
