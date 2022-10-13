@@ -61,6 +61,13 @@ class _$AudioRecordSerializer implements StructuredSerializer<AudioRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.track2;
+    if (value != null) {
+      result
+        ..add('track2')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -107,6 +114,10 @@ class _$AudioRecordSerializer implements StructuredSerializer<AudioRecord> {
           result.downloaded = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'track2':
+          result.track2 = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -134,6 +145,8 @@ class _$AudioRecord extends AudioRecord {
   @override
   final bool? downloaded;
   @override
+  final String? track2;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$AudioRecord([void Function(AudioRecordBuilder)? updates]) =>
@@ -146,6 +159,7 @@ class _$AudioRecord extends AudioRecord {
       this.genre,
       this.coverImg,
       this.downloaded,
+      this.track2,
       this.ffRef})
       : super._();
 
@@ -166,6 +180,7 @@ class _$AudioRecord extends AudioRecord {
         genre == other.genre &&
         coverImg == other.coverImg &&
         downloaded == other.downloaded &&
+        track2 == other.track2 &&
         ffRef == other.ffRef;
   }
 
@@ -175,11 +190,13 @@ class _$AudioRecord extends AudioRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, track.hashCode), name.hashCode),
-                        author.hashCode),
-                    genre.hashCode),
-                coverImg.hashCode),
-            downloaded.hashCode),
+                    $jc(
+                        $jc($jc($jc(0, track.hashCode), name.hashCode),
+                            author.hashCode),
+                        genre.hashCode),
+                    coverImg.hashCode),
+                downloaded.hashCode),
+            track2.hashCode),
         ffRef.hashCode));
   }
 
@@ -192,6 +209,7 @@ class _$AudioRecord extends AudioRecord {
           ..add('genre', genre)
           ..add('coverImg', coverImg)
           ..add('downloaded', downloaded)
+          ..add('track2', track2)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -224,6 +242,10 @@ class AudioRecordBuilder implements Builder<AudioRecord, AudioRecordBuilder> {
   bool? get downloaded => _$this._downloaded;
   set downloaded(bool? downloaded) => _$this._downloaded = downloaded;
 
+  String? _track2;
+  String? get track2 => _$this._track2;
+  set track2(String? track2) => _$this._track2 = track2;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -241,6 +263,7 @@ class AudioRecordBuilder implements Builder<AudioRecord, AudioRecordBuilder> {
       _genre = $v.genre;
       _coverImg = $v.coverImg;
       _downloaded = $v.downloaded;
+      _track2 = $v.track2;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -270,6 +293,7 @@ class AudioRecordBuilder implements Builder<AudioRecord, AudioRecordBuilder> {
             genre: genre,
             coverImg: coverImg,
             downloaded: downloaded,
+            track2: track2,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

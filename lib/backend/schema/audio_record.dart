@@ -21,6 +21,8 @@ abstract class AudioRecord implements Built<AudioRecord, AudioRecordBuilder> {
 
   bool? get downloaded;
 
+  String? get track2;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -31,7 +33,8 @@ abstract class AudioRecord implements Built<AudioRecord, AudioRecordBuilder> {
     ..author = ''
     ..genre = ''
     ..coverImg = ''
-    ..downloaded = false;
+    ..downloaded = false
+    ..track2 = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('audio');
@@ -61,6 +64,7 @@ Map<String, dynamic> createAudioRecordData({
   String? genre,
   String? coverImg,
   bool? downloaded,
+  String? track2,
 }) {
   final firestoreData = serializers.toFirestore(
     AudioRecord.serializer,
@@ -71,7 +75,8 @@ Map<String, dynamic> createAudioRecordData({
         ..author = author
         ..genre = genre
         ..coverImg = coverImg
-        ..downloaded = downloaded,
+        ..downloaded = downloaded
+        ..track2 = track2,
     ),
   );
 
