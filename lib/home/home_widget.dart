@@ -1,7 +1,7 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_video_player.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -404,14 +404,32 @@ class _HomeWidgetState extends State<HomeWidget> {
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              FlutterFlowVideoPlayer(
-                                path: listViewAudioRecord.track2!,
-                                videoType: VideoType.network,
-                                autoPlay: false,
-                                looping: true,
-                                showControls: true,
-                                allowFullScreen: true,
-                                allowPlaybackSpeedMenu: false,
+                              FlutterFlowAudioPlayer(
+                                audio: Audio.network(
+                                  listViewAudioRecord.track!,
+                                  metas: Metas(
+                                    id: 'sample3.mp3-zhg3h9ji',
+                                  ),
+                                ),
+                                titleTextStyle: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                playbackDurationTextStyle:
+                                    FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF9D9D9D),
+                                          fontSize: 12,
+                                        ),
+                                fillColor: Color(0xFFEEEEEE),
+                                playbackButtonColor:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                activeTrackColor: Color(0xFF57636C),
+                                elevation: 4,
                               ),
                             ],
                           );
