@@ -80,9 +80,10 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                                         0, 10, 0, 10),
                                     child: FlutterFlowAudioPlayer(
                                       audio: Audio.network(
-                                        'https://filesamples.com/samples/audio/mp3/sample3.mp3',
+                                        listViewTracksRecord.linkUrl!,
                                         metas: Metas(
-                                          id: 'sample3.mp3-bj7osapy',
+                                          id: 'sample3.mp3-3gg0gzim',
+                                          title: listViewTracksRecord.name,
                                         ),
                                       ),
                                       titleTextStyle:
@@ -90,6 +91,7 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                                               .bodyText1
                                               .override(
                                                 fontFamily: 'Poppins',
+                                                color: Colors.white,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                       playbackDurationTextStyle:
@@ -100,10 +102,8 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                                                 color: Color(0xFF9D9D9D),
                                                 fontSize: 12,
                                               ),
-                                      fillColor: Color(0xFFEEEEEE),
-                                      playbackButtonColor:
-                                          FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                      fillColor: Colors.black,
+                                      playbackButtonColor: Colors.white,
                                       activeTrackColor: Color(0xFF57636C),
                                       elevation: 4,
                                     ),
