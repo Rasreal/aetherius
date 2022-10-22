@@ -11,3 +11,4 @@ export 'album_page/album_page_widget.dart' show AlbumPageWidget;
 export 'track_player_page/track_player_page_widget.dart'
     show TrackPlayerPageWidget;
 export 'search/search_widget.dart' show SearchWidget;
+export 'library_page/library_page_widget.dart' show LibraryPageWidget;

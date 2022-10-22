@@ -151,6 +151,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'search')
                   : SearchWidget(),
+            ),
+            FFRoute(
+              name: 'libraryPage',
+              path: 'libraryPage',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'libraryPage')
+                  : LibraryPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
