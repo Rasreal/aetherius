@@ -134,6 +134,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'search',
+              path: 'search',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'search')
+                  : SearchWidget(),
+            ),
+            FFRoute(
               name: 'trackPlayerPage',
               path: 'trackPlayerPage',
               asyncParams: {
@@ -146,18 +153,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'search',
-              path: 'search',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'search')
-                  : SearchWidget(),
-            ),
-            FFRoute(
               name: 'libraryPage',
               path: 'libraryPage',
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'libraryPage')
                   : LibraryPageWidget(),
+            ),
+            FFRoute(
+              name: 'trackPlayerPage222',
+              path: 'trackPlayerPage222',
+              asyncParams: {
+                'track': getDoc('tracks', TracksRecord.serializer),
+              },
+              builder: (context, params) => TrackPlayerPage222Widget(
+                track: params.getParam('track', ParamType.Document),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

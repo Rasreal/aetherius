@@ -132,20 +132,15 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                     child: InkWell(
                                       onTap: () async {
                                         context.pushNamed(
-                                          'trackPlayerPage',
+                                          'trackPlayerPage222',
                                           queryParams: {
                                             'track': serializeParam(
                                               listViewTracksRecord,
                                               ParamType.Document,
                                             ),
-                                            'album': serializeParam(
-                                              widget.album,
-                                              ParamType.Document,
-                                            ),
                                           }.withoutNulls,
                                           extra: <String, dynamic>{
                                             'track': listViewTracksRecord,
-                                            'album': widget.album,
                                           },
                                         );
                                       },
@@ -166,7 +161,7 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                             audio: Audio.network(
                                               listViewTracksRecord.linkUrl!,
                                               metas: Metas(
-                                                id: 'sample3.mp3-063u6f92',
+                                                id: 'sample3.mp3-45n1b3pk',
                                                 title:
                                                     listViewTracksRecord.name,
                                               ),
