@@ -1,11 +1,14 @@
 import 'dart:async';
 
+//import 'package:aetherius_cloud/track_player_page/track_player_page_widget_222.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../library_page/library_page_widget.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
 import '../../auth/firebase_user_provider.dart';
+import 'package:aetherius_cloud/track_player_page/track_player_page222.dart';
 
 import '../../index.dart';
 import '../../main.dart';
@@ -143,6 +146,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => TrackPlayerPageWidget(
                 track: params.getParam('track', ParamType.Document),
                 album: params.getParam('album', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'trackPlayer222',
+              path: 'trackPlayer222',
+              asyncParams: {
+                'track': getDoc('tracks', TracksRecord.serializer),
+              },
+              builder: (context, params) => TrackPlayer222(
+                track: params.getParam('track', ParamType.Document),
               ),
             ),
             FFRoute(

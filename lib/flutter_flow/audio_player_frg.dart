@@ -97,10 +97,52 @@ class _AudioPlayerFRGState extends State<AudioPlayerFRG> {
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        widget.audio.metas.title ?? 'Audio Title',
-                        style: widget.titleTextStyle,
+                      Container(
+                        margin: EdgeInsets.only(left: 40),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.audio.metas.title ?? 'Audio Title',
+                              style:
+                                  widget.titleTextStyle.copyWith(fontSize: 35),
+                            ),
+                            Text(
+                              'Speaker Name',
+                              style: widget.titleTextStyle
+                                  .copyWith(fontSize: 30, color: Colors.grey),
+                            ),
+                            Text(
+                              'From the Twelve Blessings',
+                              textAlign: TextAlign.left,
+                              style: widget.titleTextStyle.copyWith(
+                                  fontSize: 27, color: Colors.grey.shade800),
+                            ),
+                            Text(
+                              'Category: ######',
+                              textAlign: TextAlign.left,
+                              style: widget.titleTextStyle.copyWith(
+                                  fontSize: 23, color: Colors.grey.shade800),
+                            ),
+                            Text(
+                              'Beginner friendly',
+                              textAlign: TextAlign.left,
+                              style: widget.titleTextStyle.copyWith(
+                                  fontSize: 20, color: Colors.grey.shade800),
+                            ),
+                            Text(
+                              'TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT TEXT T read more ',
+                              textAlign: TextAlign.left,
+                              style: widget.titleTextStyle.copyWith(
+                                  fontSize: 20, color: Colors.white70),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
                       ),
                       PositionSeekWidget(
                         currentPosition: currentPosition(infos),
@@ -140,10 +182,10 @@ class _AudioPlayerFRGState extends State<AudioPlayerFRG> {
                               (isPlaying)
                                   ? Icons.pause_circle_filled_rounded
                                   : Icons.play_circle_fill_rounded,
-                              color: widget.playbackButtonColor,
-                              size: 54,
+                              color: Colors.white,
+                              size: 75,
                             ),
-                            iconSize: 54,
+                            iconSize: 75,
                           ),
                         ),
                       ),

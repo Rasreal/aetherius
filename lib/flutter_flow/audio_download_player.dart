@@ -192,78 +192,100 @@ class _AudioDownloadPlayerState extends State<AudioDownloadPlayer> {
                                 ),
                               ),
                             ),
-                            IconButton(
-                              onPressed: () async {
-                                Map<Permission, PermissionStatus> statuses =
-                                    await [
-                                  Permission.storage,
-                                  //add more permission to request here.
-                                ].request();
-                                // Directory? dirr = await getDownloadsDirectory();
-                                // String dirr2 = dirr!.path;
-                                if (statuses[Permission.storage]!.isGranted) {
-                                  Directory? dir1;
-                                  // var dir = await DownloadsPathProvider
-                                  //     .downloadsDirectory;
-                                  if (Platform.isIOS) {
-                                    dir1 =
-                                        await getApplicationDocumentsDirectory();
-                                  } else {
-                                    dir1 = await getExternalStorageDirectory();
-                                  }
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.check_circle_rounded,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                IconButton(
+                                  onPressed: () async {
+                                    Map<Permission, PermissionStatus> statuses =
+                                        await [
+                                      Permission.storage,
+                                      //add more permission to request here.
+                                    ].request();
+                                    // Directory? dirr = await getDownloadsDirectory();
+                                    // String dirr2 = dirr!.path;
+                                    if (statuses[Permission.storage]!
+                                        .isGranted) {
+                                      Directory? dir1;
+                                      // var dir = await DownloadsPathProvider
+                                      //     .downloadsDirectory;
+                                      if (Platform.isIOS) {
+                                        dir1 =
+                                            await getApplicationDocumentsDirectory();
+                                      } else {
+                                        dir1 =
+                                            await getExternalStorageDirectory();
+                                      }
 
-                                  String src = dir1!.path;
+                                      String src = dir1!.path;
 
-                                  print(src);
-                                  String savePath =
-                                      dir1.path + "/${widget.trackName}";
-                                  print(savePath);
-                                  //output:  /storage/emulated/0/Download/banner.png
-                                  if (downloading == false &&
-                                      downloaded == false) {
-                                    try {
-                                      await Dio().download(
-                                          widget.trackUrl, savePath,
-                                          onReceiveProgress: (received, total) {
-                                        setState(() {
-                                          downloading = true;
-                                        });
-                                        int percent =
-                                            (received / total * 100).toInt();
-                                        if (total != -1) {
-                                          if (percent == 12 ||
-                                              percent == 24 ||
-                                              percent == 36 ||
-                                              percent == 48 ||
-                                              percent == 60 ||
-                                              percent == 72 ||
-                                              percent == 84)
-                                            print((received / total * 100)
-                                                    .toStringAsFixed(0) +
-                                                "%");
-                                          //you can build progressbar feature too
+                                      print(src);
+                                      String savePath =
+                                          dir1.path + "/${widget.trackName}";
+                                      print(savePath);
+                                      //output:  /storage/emulated/0/Download/banner.png
+                                      if (downloading == false &&
+                                          downloaded == false) {
+                                        try {
+                                          await Dio().download(
+                                              widget.trackUrl, savePath,
+                                              onReceiveProgress:
+                                                  (received, total) {
+                                            setState(() {
+                                              downloading = true;
+                                            });
+                                            int percent =
+                                                (received / total * 100)
+                                                    .toInt();
+                                            if (total != -1) {
+                                              if (percent == 12 ||
+                                                  percent == 24 ||
+                                                  percent == 36 ||
+                                                  percent == 48 ||
+                                                  percent == 60 ||
+                                                  percent == 72 ||
+                                                  percent == 84)
+                                                print((received / total * 100)
+                                                        .toStringAsFixed(0) +
+                                                    "%");
+                                              //you can build progressbar feature too
+                                            }
+                                          });
+                                          setState(() {
+                                            downloading = false;
+                                            downloaded = true;
+                                          });
+                                          print(
+                                              "File is saved to download folder.");
+                                        } on DioError catch (e) {
+                                          print(e.message);
                                         }
-                                      });
-                                      setState(() {
-                                        downloading = false;
-                                        downloaded = true;
-                                      });
-                                      print(
-                                          "File is saved to download folder.");
-                                    } on DioError catch (e) {
-                                      print(e.message);
+                                      } else {
+                                        // await Dio().delete(savePath);
+                                        // setState(() {
+                                        //   downloading = !downloading;
+                                        // });
+                                      }
+                                    } else {
+                                      print("No permission to read and write.");
                                     }
-                                  } else {
-                                    // await Dio().delete(savePath);
-                                    // setState(() {
-                                    //   downloading = !downloading;
-                                    // });
-                                  }
-                                } else {
-                                  print("No permission to read and write.");
-                                }
-                              },
-                              icon: downloadBtn(downloading, downloaded),
+                                  },
+                                  icon: downloadBtn(downloading, downloaded),
+                                ),
+                                SizedBox(
+                                  width: 2,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.heart,
+                                  color: Colors.grey,
+                                ),
+                              ],
                             ),
                           ],
                         ),
