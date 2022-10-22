@@ -85,14 +85,35 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
-                          child: Text(
-                            widget.album!.name!,
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.album!.name!,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
                                       fontSize: 24,
                                     ),
+                              ),
+                              Text(
+                                ", ",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 24),
+                              ),
+                              Text(
+                                widget.album!.artist!,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
@@ -130,79 +151,66 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                       listViewTracksRecordList[listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 10),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'trackPlayerPage',
-                                          queryParams: {
-                                            'track': serializeParam(
-                                              listViewTracksRecord,
-                                              ParamType.Document,
-                                            ),
-                                            'album': serializeParam(
-                                              widget.album,
-                                              ParamType.Document,
-                                            ),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'track': listViewTracksRecord,
-                                            'album': widget.album,
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        width: 100,
-                                        height: 120,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                                        0, 10, 0, 5),
+                                    child: Container(
+                                      decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
-                                          child: AudioDownloadPlayer(
-                                            trackName:
-                                                listViewTracksRecord.name!,
-                                            trackUrl:
-                                                listViewTracksRecord.linkUrl!,
-                                            audio: Audio.network(
-                                              listViewTracksRecord.linkUrl!,
-                                              metas: Metas(
-                                                id: 'sample3.mp3-063u6f92',
-                                                title:
-                                                    listViewTracksRecord.name,
+                                              BorderRadius.circular(12),
+                                          border:
+                                              Border.all(color: Colors.white)),
+                                      child: AudioDownloadPlayer(
+                                        function: () async {
+                                          context.pushNamed(
+                                            'trackPlayerPage',
+                                            queryParams: {
+                                              'track': serializeParam(
+                                                listViewTracksRecord,
+                                                ParamType.Document,
                                               ),
+                                              'album': serializeParam(
+                                                widget.album,
+                                                ParamType.Document,
+                                              ),
+                                            }.withoutNulls,
+                                            extra: <String, dynamic>{
+                                              'track': listViewTracksRecord,
+                                              'album': widget.album,
+                                            },
+                                          );
+                                        },
+                                        trackName: listViewTracksRecord.name!,
+                                        trackUrl: listViewTracksRecord.linkUrl!,
+                                        audio: Audio.network(
+                                          listViewTracksRecord.linkUrl!,
+                                          metas: Metas(
+                                            id: 'sample3.mp3-063u6f92',
+                                            title: listViewTracksRecord.name,
+                                          ),
+                                        ),
+                                        titleTextStyle: FlutterFlowTheme.of(
+                                                context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              fontWeight: FontWeight.w600,
                                             ),
-                                            titleTextStyle: FlutterFlowTheme.of(
-                                                    context)
+                                        playbackDurationTextStyle:
+                                            FlutterFlowTheme.of(context)
                                                 .bodyText1
                                                 .override(
                                                   fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF9D9D9D),
+                                                  fontSize: 12,
                                                 ),
-                                            playbackDurationTextStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF9D9D9D),
-                                                      fontSize: 12,
-                                                    ),
-                                            fillColor: Colors.black,
-                                            playbackButtonColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            activeTrackColor: Color(0xFF57636C),
-                                            elevation: 4,
-                                          ),
-                                        ),
+                                        fillColor: Colors.black,
+                                        playbackButtonColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                        activeTrackColor: Color(0xFF57636C),
+                                        elevation: 4,
                                       ),
                                     ),
                                   );

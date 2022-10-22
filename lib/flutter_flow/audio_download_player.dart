@@ -44,6 +44,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AudioDownloadPlayer extends StatefulWidget {
   const AudioDownloadPlayer({
+    required this.function,
     required this.trackUrl,
     required this.trackName,
     required this.audio,
@@ -54,7 +55,7 @@ class AudioDownloadPlayer extends StatefulWidget {
     required this.activeTrackColor,
     required this.elevation,
   });
-
+  final Function function;
   final String trackUrl;
   final String trackName;
   final Audio audio;
@@ -146,7 +147,7 @@ class _AudioDownloadPlayerState extends State<AudioDownloadPlayer> {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      //
+                      widget.function();
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

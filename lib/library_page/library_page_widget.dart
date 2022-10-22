@@ -1,3 +1,7 @@
+import 'package:aetherius_cloud/flutter_flow/audio_download_player.dart';
+import 'package:aetherius_cloud/index.dart';
+import 'package:aetherius_cloud/track_player_page/track_player_page_widget_222.dart';
+
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -46,73 +50,78 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          StreamBuilder<List<TracksRecord>>(
-                            stream: queryTracksRecord(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<TracksRecord> listViewTracksRecordList =
-                                  snapshot.data!;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewTracksRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewTracksRecord =
-                                      listViewTracksRecordList[listViewIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 10),
-                                    child: FlutterFlowAudioPlayer(
-                                      audio: Audio.network(
-                                        listViewTracksRecord.linkUrl!,
-                                        metas: Metas(
-                                          id: 'sample3.mp3-3gg0gzim',
-                                          title: listViewTracksRecord.name,
-                                        ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            StreamBuilder<List<TracksRecord>>(
+                              stream: queryTracksRecord(),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                       ),
-                                      titleTextStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                      playbackDurationTextStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0xFF9D9D9D),
-                                                fontSize: 12,
-                                              ),
-                                      fillColor: Colors.black,
-                                      playbackButtonColor: Colors.white,
-                                      activeTrackColor: Color(0xFF57636C),
-                                      elevation: 4,
                                     ),
                                   );
-                                },
-                              );
-                            },
-                          ),
-                        ],
+                                }
+                                List<TracksRecord> listViewTracksRecordList =
+                                    snapshot.data!;
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewTracksRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewTracksRecord =
+                                        listViewTracksRecordList[listViewIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 10),
+                                      child: AudioDownloadPlayer(
+                                        function: () {},
+                                        trackUrl: listViewTracksRecord.linkUrl!,
+                                        trackName: listViewTracksRecord.name!,
+                                        audio: Audio.network(
+                                          listViewTracksRecord.linkUrl!,
+                                          metas: Metas(
+                                            id: 'sample3.mp3-3gg0gzim',
+                                            title: listViewTracksRecord.name,
+                                          ),
+                                        ),
+                                        titleTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                        playbackDurationTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF9D9D9D),
+                                                  fontSize: 12,
+                                                ),
+                                        fillColor: Colors.black,
+                                        playbackButtonColor: Colors.white,
+                                        activeTrackColor: Color(0xFF57636C),
+                                        elevation: 4,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
