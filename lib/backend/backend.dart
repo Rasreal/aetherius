@@ -1,9 +1,12 @@
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
 
 import 'schema/audio_record.dart';
+import 'schema/album_record.dart';
+import 'schema/tracks_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -12,6 +15,8 @@ export 'schema/index.dart';
 export 'schema/serializers.dart';
 
 export 'schema/audio_record.dart';
+export 'schema/album_record.dart';
+export 'schema/tracks_record.dart';
 
 /// Functions to query AudioRecords (as a Stream and as a Future).
 Stream<List<AudioRecord>> queryAudioRecord({
@@ -49,6 +54,90 @@ Future<FFFirestorePage<AudioRecord>> queryAudioRecordPage({
     queryCollectionPage(
       AudioRecord.collection,
       AudioRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query AlbumRecords (as a Stream and as a Future).
+Stream<List<AlbumRecord>> queryAlbumRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      AlbumRecord.collection,
+      AlbumRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<AlbumRecord>> queryAlbumRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      AlbumRecord.collection,
+      AlbumRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<AlbumRecord>> queryAlbumRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      AlbumRecord.collection,
+      AlbumRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query TracksRecords (as a Stream and as a Future).
+Stream<List<TracksRecord>> queryTracksRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TracksRecord.collection,
+      TracksRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<TracksRecord>> queryTracksRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TracksRecord.collection,
+      TracksRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<TracksRecord>> queryTracksRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+    queryCollectionPage(
+      TracksRecord.collection,
+      TracksRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

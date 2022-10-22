@@ -14,11 +14,19 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    _downloaded = prefs.getBool('ff_downloaded') ?? _downloaded;
   }
 
   late SharedPreferences prefs;
 
   String audioTemp = '';
+
+  bool _downloaded = false;
+  bool get downloaded => _downloaded;
+  set downloaded(bool _value) {
+    _downloaded = _value;
+    prefs.setBool('ff_downloaded', _value);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
