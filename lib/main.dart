@@ -106,6 +106,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'freeHomePage': FreeHomePageWidget(),
       'search': SearchWidget(),
+      'libraryPage': LibraryPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -145,6 +146,18 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 24,
             ),
             label: 'Search',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.library_music,
+              size: 24,
+            ),
+            activeIcon: Icon(
+              Icons.library_music,
+              size: 26,
+            ),
+            label: 'Library',
             tooltip: '',
           )
         ],
