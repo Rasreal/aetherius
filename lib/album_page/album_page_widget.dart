@@ -151,7 +151,7 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                       listViewTracksRecordList[listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 10, 0, 5),
+                                        0, 10, 0, 6),
                                     child: Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
