@@ -1,3 +1,5 @@
+import 'package:aetherius_cloud/index.dart';
+
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -52,6 +54,8 @@ class _FreeHomePageWidgetState extends State<FreeHomePageWidget> {
             ),
             onPressed: () {
               print('IconButton pressed ...');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StartPageWidget()));
             },
           ),
         ],

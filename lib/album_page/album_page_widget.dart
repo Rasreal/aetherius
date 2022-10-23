@@ -1,3 +1,5 @@
+import 'package:aetherius_cloud/flutter_flow/audio_download_player.dart';
+
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -41,6 +43,7 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
           ),
           onPressed: () {
             print('IconButton pressed ...');
+            Navigator.pop(context);
           },
         ),
         title: Text(
@@ -129,8 +132,20 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 10, 0, 10),
-                                    child: InkWell(
-                                      onTap: () async {
+                                    child: AudioDownloadPlayer(
+                                      img: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          valueOrDefault<String>(
+                                            listViewTracksRecord.img,
+                                            'https://www.nme.com/wp-content/uploads/2019/11/image012-1-1392x884.png',
+                                          ),
+                                          width: 50,
+                                          height: 50,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      function: () async {
                                         context.pushNamed(
                                           'trackPlayerPage222',
                                           queryParams: {
@@ -144,55 +159,39 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                           },
                                         );
                                       },
-                                      child: Container(
-                                        width: 100,
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 0, 10),
-                                          child: FlutterFlowAudioPlayer(
-                                            audio: Audio.network(
-                                              listViewTracksRecord.linkUrl!,
-                                              metas: Metas(
-                                                id: 'sample3.mp3-94z66glk',
-                                                title:
-                                                    listViewTracksRecord.name,
-                                              ),
-                                            ),
-                                            titleTextStyle: FlutterFlowTheme.of(
-                                                    context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                            playbackDurationTextStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyText1
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Color(0xFF9D9D9D),
-                                                      fontSize: 12,
-                                                    ),
-                                            fillColor: Colors.black,
-                                            playbackButtonColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            activeTrackColor: Color(0xFF57636C),
-                                            elevation: 4,
-                                          ),
+                                      trackUrl: listViewTracksRecord.linkUrl!,
+                                      trackName: listViewTracksRecord.name!,
+                                      audio: Audio.network(
+                                        listViewTracksRecord.linkUrl!,
+                                        metas: Metas(
+                                          id: 'sample3.mp3-94z66glk',
+                                          title: listViewTracksRecord.name,
                                         ),
                                       ),
+                                      titleTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                      playbackDurationTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF9D9D9D),
+                                                fontSize: 12,
+                                              ),
+                                      fillColor: Colors.black,
+                                      playbackButtonColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                      activeTrackColor: Color(0xFF57636C),
+                                      elevation: 4,
                                     ),
                                   );
                                 },

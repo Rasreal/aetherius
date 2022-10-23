@@ -1,3 +1,5 @@
+import 'package:aetherius_cloud/flutter_flow/audio_download_player.dart';
+
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -19,7 +21,7 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
@@ -45,56 +47,75 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          StreamBuilder<List<TracksRecord>>(
-                            stream: queryTracksRecord(),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<TracksRecord> listViewTracksRecordList =
-                                  snapshot.data!;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewTracksRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewTracksRecord =
-                                      listViewTracksRecordList[listViewIndex];
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          listViewTracksRecord.img!,
-                                          width: 50,
-                                          height: 50,
-                                          fit: BoxFit.cover,
-                                        ),
+                    Flexible(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            StreamBuilder<List<TracksRecord>>(
+                              stream: queryTracksRecord(),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                       ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.05, 0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 5, 0, 0),
-                                          child: FlutterFlowAudioPlayer(
+                                    ),
+                                  );
+                                }
+                                List<TracksRecord> listViewTracksRecordList =
+                                    snapshot.data!;
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewTracksRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewTracksRecord =
+                                        listViewTracksRecordList[listViewIndex];
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.05, 0),
+                                          child: AudioDownloadPlayer(
+                                            img: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                valueOrDefault<String>(
+                                                  listViewTracksRecord.img,
+                                                  'https://www.nme.com/wp-content/uploads/2019/11/image012-1-1392x884.png',
+                                                ),
+                                                width: 50,
+                                                height: 50,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            function: () async {
+                                              context.pushNamed(
+                                                'trackPlayerPage222',
+                                                queryParams: {
+                                                  'track': serializeParam(
+                                                    listViewTracksRecord,
+                                                    ParamType.Document,
+                                                  ),
+                                                }.withoutNulls,
+                                                extra: <String, dynamic>{
+                                                  'track': listViewTracksRecord,
+                                                },
+                                              );
+                                            },
+                                            trackName:
+                                                listViewTracksRecord.name!,
+                                            trackUrl:
+                                                listViewTracksRecord.linkUrl!,
                                             audio: Audio.network(
                                               listViewTracksRecord.linkUrl!,
                                               metas: Metas(
@@ -126,14 +147,14 @@ class _LibraryPageWidgetState extends State<LibraryPageWidget> {
                                             elevation: 4,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ],
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
