@@ -1,14 +1,11 @@
 import 'dart:async';
 
-//import 'package:aetherius_cloud/track_player_page/track_player_page_widget_222.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../library_page/library_page_widget.dart';
 import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
 import '../../auth/firebase_user_provider.dart';
-import 'package:aetherius_cloud/track_player_page/track_player_page222.dart';
 
 import '../../index.dart';
 import '../../main.dart';
@@ -137,6 +134,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'search',
+              path: 'search',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'search')
+                  : SearchWidget(),
+            ),
+            FFRoute(
               name: 'trackPlayerPage',
               path: 'trackPlayerPage',
               asyncParams: {
@@ -149,28 +153,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'trackPlayer222',
-              path: 'trackPlayer222',
-              asyncParams: {
-                'track': getDoc('tracks', TracksRecord.serializer),
-              },
-              builder: (context, params) => TrackPlayer222(
-                track: params.getParam('track', ParamType.Document),
-              ),
-            ),
-            FFRoute(
-              name: 'search',
-              path: 'search',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'search')
-                  : SearchWidget(),
-            ),
-            FFRoute(
               name: 'libraryPage',
               path: 'libraryPage',
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'libraryPage')
                   : LibraryPageWidget(),
+            ),
+            FFRoute(
+              name: 'trackPlayerPage222',
+              path: 'trackPlayerPage222',
+              asyncParams: {
+                'track': getDoc('tracks', TracksRecord.serializer),
+              },
+              builder: (context, params) => TrackPlayerPage222Widget(
+                track: params.getParam('track', ParamType.Document),
+              ),
+            ),
+            FFRoute(
+              name: 'registration',
+              path: 'registration',
+              builder: (context, params) => RegistrationWidget(),
+            ),
+            FFRoute(
+              name: 'login',
+              path: 'login',
+              builder: (context, params) => LoginWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
