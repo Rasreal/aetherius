@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../flutter_flow/audio_player_frg.dart';
 import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -7,21 +6,20 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TrackPlayerPageWidget extends StatefulWidget {
-  const TrackPlayerPageWidget({
+class TrackPlayerPage222Widget extends StatefulWidget {
+  const TrackPlayerPage222Widget({
     Key? key,
     this.track,
-    this.album,
   }) : super(key: key);
 
   final TracksRecord? track;
-  final AlbumRecord? album;
 
   @override
-  _TrackPlayerPageWidgetState createState() => _TrackPlayerPageWidgetState();
+  _TrackPlayerPage222WidgetState createState() =>
+      _TrackPlayerPage222WidgetState();
 }
 
-class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
+class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -78,10 +76,7 @@ class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              valueOrDefault<String>(
-                                widget.album!.img,
-                                'https://s3.amazonaws.com/media.thecrimson.com/photos/2020/04/02/211518_1343746.jpg',
-                              ),
+                              'https://picsum.photos/seed/146/600',
                               width: 240,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -90,11 +85,11 @@ class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                          child: AudioPlayerFRG(
+                          child: FlutterFlowAudioPlayer(
                             audio: Audio.network(
                               widget.track!.linkUrl!,
                               metas: Metas(
-                                id: 'sample3.mp3-dtvkcrv0',
+                                id: 'sample3.mp3-h29gmn7a',
                               ),
                             ),
                             titleTextStyle:
