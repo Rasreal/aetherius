@@ -27,20 +27,6 @@ class FFAppState {
     _downloaded = _value;
     prefs.setBool('ff_downloaded', _value);
   }
-
-  String country = '';
-
-  String email = '';
-
-  bool checkPolicy = false;
-
-  String password = '';
-
-  String plan = '';
-
-  String displayName = '';
-
-  int step = 1;
 }
 
 LatLng? _latLngFromString(String? val) {

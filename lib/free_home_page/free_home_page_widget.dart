@@ -1,8 +1,10 @@
-import '../auth/auth_util.dart';
+import 'package:aetherius_cloud/index.dart';
+
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,14 +29,32 @@ class _FreeHomePageWidgetState extends State<FreeHomePageWidget> {
         title: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            AuthUserStreamWidget(
-              child: Text(
-                'Welcome, ${currentUserDisplayName}',
-                style: FlutterFlowTheme.of(context).title2.override(
+            Text(
+              'Free Trial',
+              style: FlutterFlowTheme.of(context).title2.override(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 22,
+                  ),
+            ),
+            FFButtonWidget(
+              onPressed: () {
+                print('Button pressed ...');
+              },
+              text: 'Buy',
+              options: FFButtonOptions(
+                width: 100,
+                height: 40,
+                color: Color(0x004B39EF),
+                textStyle: FlutterFlowTheme.of(context).title2.override(
                       fontFamily: 'Poppins',
                       color: Colors.white,
-                      fontSize: 22,
                     ),
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ],
@@ -46,12 +66,14 @@ class _FreeHomePageWidgetState extends State<FreeHomePageWidget> {
             borderWidth: 1,
             buttonSize: 60,
             icon: Icon(
-              Icons.settings,
+              Icons.exit_to_app,
               color: Colors.white,
               size: 30,
             ),
             onPressed: () {
               print('IconButton pressed ...');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StartPageWidget()));
             },
           ),
         ],

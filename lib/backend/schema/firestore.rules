@@ -21,12 +21,5 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if true;
     }
-
-    match /user/{document} {
-      allow create: if request.auth.uid == document;
-      allow read: if request.auth.uid == document;
-      allow write: if request.auth.uid == document;
-      allow delete: if false;
-    }
   }
 }

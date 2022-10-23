@@ -4,7 +4,6 @@ import 'package:from_css_color/from_css_color.dart';
 import 'audio_record.dart';
 import 'album_record.dart';
 import 'tracks_record.dart';
-import 'user_record.dart';
 
 import 'index.dart';
 
@@ -18,7 +17,6 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   AudioRecord,
   AlbumRecord,
   TracksRecord,
-  UserRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())
