@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../flutter_flow/audio_player_frg.dart';
 import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -89,7 +90,7 @@ class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                          child: FlutterFlowAudioPlayer(
+                          child: AudioPlayerFRG(
                             audio: Audio.network(
                               widget.track!.linkUrl!,
                               metas: Metas(
