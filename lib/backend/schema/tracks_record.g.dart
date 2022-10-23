@@ -42,6 +42,34 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.img;
+    if (value != null) {
+      result
+        ..add('img')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.artist;
+    if (value != null) {
+      result
+        ..add('artist')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.listeningNotes;
+    if (value != null) {
+      result
+        ..add('listeningNotes')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.category;
+    if (value != null) {
+      result
+        ..add('category')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -79,6 +107,22 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
           result.linkUrl = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'img':
+          result.img = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'artist':
+          result.artist = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'listeningNotes':
+          result.listeningNotes = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'category':
+          result.category = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -100,12 +144,28 @@ class _$TracksRecord extends TracksRecord {
   @override
   final String? linkUrl;
   @override
+  final String? img;
+  @override
+  final String? artist;
+  @override
+  final String? listeningNotes;
+  @override
+  final String? category;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TracksRecord([void Function(TracksRecordBuilder)? updates]) =>
       (new TracksRecordBuilder()..update(updates))._build();
 
-  _$TracksRecord._({this.name, this.albumRef, this.linkUrl, this.ffRef})
+  _$TracksRecord._(
+      {this.name,
+      this.albumRef,
+      this.linkUrl,
+      this.img,
+      this.artist,
+      this.listeningNotes,
+      this.category,
+      this.ffRef})
       : super._();
 
   @override
@@ -122,13 +182,26 @@ class _$TracksRecord extends TracksRecord {
         name == other.name &&
         albumRef == other.albumRef &&
         linkUrl == other.linkUrl &&
+        img == other.img &&
+        artist == other.artist &&
+        listeningNotes == other.listeningNotes &&
+        category == other.category &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), albumRef.hashCode), linkUrl.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, name.hashCode), albumRef.hashCode),
+                            linkUrl.hashCode),
+                        img.hashCode),
+                    artist.hashCode),
+                listeningNotes.hashCode),
+            category.hashCode),
         ffRef.hashCode));
   }
 
@@ -138,6 +211,10 @@ class _$TracksRecord extends TracksRecord {
           ..add('name', name)
           ..add('albumRef', albumRef)
           ..add('linkUrl', linkUrl)
+          ..add('img', img)
+          ..add('artist', artist)
+          ..add('listeningNotes', listeningNotes)
+          ..add('category', category)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -160,6 +237,23 @@ class TracksRecordBuilder
   String? get linkUrl => _$this._linkUrl;
   set linkUrl(String? linkUrl) => _$this._linkUrl = linkUrl;
 
+  String? _img;
+  String? get img => _$this._img;
+  set img(String? img) => _$this._img = img;
+
+  String? _artist;
+  String? get artist => _$this._artist;
+  set artist(String? artist) => _$this._artist = artist;
+
+  String? _listeningNotes;
+  String? get listeningNotes => _$this._listeningNotes;
+  set listeningNotes(String? listeningNotes) =>
+      _$this._listeningNotes = listeningNotes;
+
+  String? _category;
+  String? get category => _$this._category;
+  set category(String? category) => _$this._category = category;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -174,6 +268,10 @@ class TracksRecordBuilder
       _name = $v.name;
       _albumRef = $v.albumRef;
       _linkUrl = $v.linkUrl;
+      _img = $v.img;
+      _artist = $v.artist;
+      _listeningNotes = $v.listeningNotes;
+      _category = $v.category;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -197,7 +295,14 @@ class TracksRecordBuilder
   _$TracksRecord _build() {
     final _$result = _$v ??
         new _$TracksRecord._(
-            name: name, albumRef: albumRef, linkUrl: linkUrl, ffRef: ffRef);
+            name: name,
+            albumRef: albumRef,
+            linkUrl: linkUrl,
+            img: img,
+            artist: artist,
+            listeningNotes: listeningNotes,
+            category: category,
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

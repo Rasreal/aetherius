@@ -1,10 +1,12 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_audio_player.dart';
+import '../backend/firebase_storage/storage.dart';
+import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,22 +24,32 @@ class CreateTrackWidget extends StatefulWidget {
 }
 
 class _CreateTrackWidgetState extends State<CreateTrackWidget> {
+  bool isMediaUploading = false;
+  String uploadedFileUrl = '';
+
   TextEditingController? nameFieldController;
   TextEditingController? urlFieldController;
+  String? dropDownValue;
+  TextEditingController? artistFieldController;
+  TextEditingController? listeningNotesFieldController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    artistFieldController = TextEditingController();
     nameFieldController = TextEditingController();
     urlFieldController = TextEditingController();
+    listeningNotesFieldController = TextEditingController();
   }
 
   @override
   void dispose() {
+    artistFieldController?.dispose();
     nameFieldController?.dispose();
     urlFieldController?.dispose();
+    listeningNotesFieldController?.dispose();
     super.dispose();
   }
 
@@ -110,75 +122,85 @@ class _CreateTrackWidgetState extends State<CreateTrackWidget> {
                               style: FlutterFlowTheme.of(context).bodyText1,
                             ),
                           ),
-                          StreamBuilder<List<TracksRecord>>(
-                            stream: queryTracksRecord(
-                              queryBuilder: (tracksRecord) =>
-                                  tracksRecord.where('albumRef',
-                                      isEqualTo: widget.albumRef!.reference),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: CircularProgressIndicator(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<TracksRecord> listViewTracksRecordList =
-                                  snapshot.data!;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewTracksRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewTracksRecord =
-                                      listViewTracksRecordList[listViewIndex];
-                                  return FlutterFlowAudioPlayer(
-                                    audio: Audio.network(
-                                      listViewTracksRecord.linkUrl!,
-                                      metas: Metas(
-                                        id: 'sample3.mp3-w8opfmyn',
-                                        title: listViewTracksRecord.name,
-                                      ),
-                                    ),
-                                    titleTextStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                    playbackDurationTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Poppins',
-                                              color: Color(0xFF9D9D9D),
-                                              fontSize: 12,
-                                            ),
-                                    fillColor: Color(0xFFEEEEEE),
-                                    playbackButtonColor:
-                                        FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                    activeTrackColor: Color(0xFF57636C),
-                                    elevation: 4,
-                                  );
-                                },
-                              );
-                            },
-                          ),
                           Form(
                             key: formKey,
                             autovalidateMode: AutovalidateMode.disabled,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
+                                Text(
+                                  'Track Cover IMG',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Container(
+                                  width: 200,
+                                  decoration: BoxDecoration(),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      final selectedMedia = await selectMedia(
+                                        mediaSource: MediaSource.photoGallery,
+                                        multiImage: false,
+                                      );
+                                      if (selectedMedia != null &&
+                                          selectedMedia.every((m) =>
+                                              validateFileFormat(
+                                                  m.storagePath, context))) {
+                                        setState(() => isMediaUploading = true);
+                                        var downloadUrls = <String>[];
+                                        try {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          downloadUrls = (await Future.wait(
+                                            selectedMedia.map(
+                                              (m) async => await uploadData(
+                                                  m.storagePath, m.bytes),
+                                            ),
+                                          ))
+                                              .where((u) => u != null)
+                                              .map((u) => u!)
+                                              .toList();
+                                        } finally {
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          isMediaUploading = false;
+                                        }
+                                        if (downloadUrls.length ==
+                                            selectedMedia.length) {
+                                          setState(() => uploadedFileUrl =
+                                              downloadUrls.first);
+                                          showUploadMessage(
+                                              context, 'Success!');
+                                        } else {
+                                          setState(() {});
+                                          showUploadMessage(context,
+                                              'Failed to upload media');
+                                          return;
+                                        }
+                                      }
+                                    },
+                                    text: 'Upload image',
+                                    options: FFButtonOptions(
+                                      width: 130,
+                                      height: 40,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
                                 Text(
                                   'Track Name',
                                   style: FlutterFlowTheme.of(context).bodyText1,
@@ -300,6 +322,166 @@ class _CreateTrackWidgetState extends State<CreateTrackWidget> {
                                     keyboardType: TextInputType.url,
                                   ),
                                 ),
+                                Text(
+                                  'Category',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 10),
+                                  child: FlutterFlowDropDown(
+                                    options: [
+                                      'Enlightenment',
+                                      'Service to others',
+                                      'God and the meaning of life',
+                                      'UFOs, aliens and their spiritual message',
+                                      'Prayer energy',
+                                      'The Mother Earth and our future',
+                                      'Karma and reincarnation',
+                                      'Intuition and psychic powers',
+                                      'Spiritual Healing'
+                                    ],
+                                    onChanged: (val) =>
+                                        setState(() => dropDownValue = val),
+                                    width: 180,
+                                    height: 50,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.black,
+                                        ),
+                                    hintText: 'Please select...',
+                                    fillColor: Color(0xFFD77272),
+                                    elevation: 2,
+                                    borderColor: Colors.transparent,
+                                    borderWidth: 0,
+                                    borderRadius: 12,
+                                    margin: EdgeInsetsDirectional.fromSTEB(
+                                        12, 4, 12, 4),
+                                    hidesUnderline: true,
+                                  ),
+                                ),
+                                Text(
+                                  'Track Artist',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Container(
+                                  width: 200,
+                                  decoration: BoxDecoration(),
+                                  child: TextFormField(
+                                    controller: artistFieldController,
+                                    autofocus: true,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: '[Some hint text...]',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText2,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ),
+                                Text(
+                                  'Track Listening Notes',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Container(
+                                  width: 200,
+                                  decoration: BoxDecoration(),
+                                  child: TextFormField(
+                                    controller: listeningNotesFieldController,
+                                    autofocus: true,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: '[Some hint text...]',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText2,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedErrorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ),
                                 FFButtonWidget(
                                   onPressed: () async {
                                     if (formKey.currentState == null ||
@@ -312,6 +494,11 @@ class _CreateTrackWidgetState extends State<CreateTrackWidget> {
                                       name: nameFieldController!.text,
                                       linkUrl: urlFieldController!.text,
                                       albumRef: widget.albumRef!.reference,
+                                      img: uploadedFileUrl,
+                                      artist: artistFieldController!.text,
+                                      listeningNotes:
+                                          listeningNotesFieldController!.text,
+                                      category: dropDownValue,
                                     );
                                     await TracksRecord.collection
                                         .doc()

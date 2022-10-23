@@ -8,7 +8,6 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(AlbumRecord.serializer)
-      ..add(AudioRecord.serializer)
       ..add(TracksRecord.serializer)
       ..add(UserRecord.serializer)
       ..addBuilderFactory(

@@ -10,11 +10,9 @@ class TrackPlayerPageWidget extends StatefulWidget {
   const TrackPlayerPageWidget({
     Key? key,
     this.track,
-    this.album,
   }) : super(key: key);
 
   final TracksRecord? track;
-  final AlbumRecord? album;
 
   @override
   _TrackPlayerPageWidgetState createState() => _TrackPlayerPageWidgetState();
@@ -77,10 +75,7 @@ class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              valueOrDefault<String>(
-                                widget.album!.img,
-                                'https://s3.amazonaws.com/media.thecrimson.com/photos/2020/04/02/211518_1343746.jpg',
-                              ),
+                              widget.track!.img!,
                               width: 240,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -93,7 +88,7 @@ class _TrackPlayerPageWidgetState extends State<TrackPlayerPageWidget> {
                             audio: Audio.network(
                               widget.track!.linkUrl!,
                               metas: Metas(
-                                id: 'sample3.mp3-ds5in6um',
+                                id: 'sample3.mp3-d54y15hd',
                               ),
                             ),
                             titleTextStyle:

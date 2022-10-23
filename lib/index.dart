@@ -1,6 +1,4 @@
 // Export pages
-export 'home_page/home_page_widget.dart' show HomePageWidget;
-export 'home/home_widget.dart' show HomeWidget;
 export 'free_home_page/free_home_page_widget.dart' show FreeHomePageWidget;
 export 'paid_home_page/paid_home_page_widget.dart' show PaidHomePageWidget;
 export 'create_track/create_track_widget.dart' show CreateTrackWidget;

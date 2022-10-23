@@ -16,13 +16,25 @@ abstract class TracksRecord
 
   String? get linkUrl;
 
+  String? get img;
+
+  String? get artist;
+
+  String? get listeningNotes;
+
+  String? get category;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TracksRecordBuilder builder) => builder
     ..name = ''
-    ..linkUrl = '';
+    ..linkUrl = ''
+    ..img = ''
+    ..artist = ''
+    ..listeningNotes = ''
+    ..category = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tracks');
@@ -49,6 +61,10 @@ Map<String, dynamic> createTracksRecordData({
   String? name,
   DocumentReference? albumRef,
   String? linkUrl,
+  String? img,
+  String? artist,
+  String? listeningNotes,
+  String? category,
 }) {
   final firestoreData = serializers.toFirestore(
     TracksRecord.serializer,
@@ -56,7 +72,11 @@ Map<String, dynamic> createTracksRecordData({
       (t) => t
         ..name = name
         ..albumRef = albumRef
-        ..linkUrl = linkUrl,
+        ..linkUrl = linkUrl
+        ..img = img
+        ..artist = artist
+        ..listeningNotes = listeningNotes
+        ..category = category,
     ),
   );
 

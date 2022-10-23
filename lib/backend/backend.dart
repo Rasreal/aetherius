@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
 
-import 'schema/audio_record.dart';
 import 'schema/album_record.dart';
 import 'schema/tracks_record.dart';
 import 'schema/user_record.dart';
@@ -15,52 +14,9 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 export 'schema/index.dart';
 export 'schema/serializers.dart';
 
-export 'schema/audio_record.dart';
 export 'schema/album_record.dart';
 export 'schema/tracks_record.dart';
 export 'schema/user_record.dart';
-
-/// Functions to query AudioRecords (as a Stream and as a Future).
-Stream<List<AudioRecord>> queryAudioRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      AudioRecord.collection,
-      AudioRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<AudioRecord>> queryAudioRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      AudioRecord.collection,
-      AudioRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<AudioRecord>> queryAudioRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      AudioRecord.collection,
-      AudioRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
 
 /// Functions to query AlbumRecords (as a Stream and as a Future).
 Stream<List<AlbumRecord>> queryAlbumRecord({

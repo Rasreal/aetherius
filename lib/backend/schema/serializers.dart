@@ -1,7 +1,6 @@
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:from_css_color/from_css_color.dart';
 
-import 'audio_record.dart';
 import 'album_record.dart';
 import 'tracks_record.dart';
 import 'user_record.dart';
@@ -15,7 +14,6 @@ part 'serializers.g.dart';
 const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
-  AudioRecord,
   AlbumRecord,
   TracksRecord,
   UserRecord,

@@ -77,16 +77,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : StartPageWidget(),
           routes: [
             FFRoute(
-              name: 'HomePage',
-              path: 'homePage',
-              builder: (context, params) => HomePageWidget(),
-            ),
-            FFRoute(
-              name: 'Home',
-              path: 'home',
-              builder: (context, params) => HomeWidget(),
-            ),
-            FFRoute(
               name: 'freeHomePage',
               path: 'freeHomePage',
               builder: (context, params) => params.isEmpty
@@ -145,11 +135,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'trackPlayerPage',
               asyncParams: {
                 'track': getDoc('tracks', TracksRecord.serializer),
-                'album': getDoc('album', AlbumRecord.serializer),
               },
               builder: (context, params) => TrackPlayerPageWidget(
                 track: params.getParam('track', ParamType.Document),
-                album: params.getParam('album', ParamType.Document),
               ),
             ),
             FFRoute(
