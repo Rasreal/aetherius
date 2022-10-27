@@ -100,7 +100,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'freeHomePage';
+  String _currentPageName = 'search';
   late Widget? _currentPage;
 
   @override
@@ -113,9 +113,9 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'freeHomePage': FreeHomePageWidget(),
+      'freeHomePageCopy': FreeHomePageCopyWidget(),
       'search': SearchWidget(),
-      'libraryPage': LibraryPageWidget(),
+      'librDummyPage': LibrDummyPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -136,10 +136,10 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home_outlined,
-              size: 28,
+              size: 22,
             ),
             activeIcon: Icon(
-              Icons.home,
+              Icons.home_filled,
               size: 24,
             ),
             label: 'Home',
@@ -147,8 +147,8 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.search,
-              size: 20,
+              Icons.search_sharp,
+              size: 22,
             ),
             activeIcon: Icon(
               Icons.search_sharp,
@@ -159,12 +159,12 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.library_music,
-              size: 24,
+              Icons.library_music_rounded,
+              size: 22,
             ),
             activeIcon: Icon(
-              Icons.library_music,
-              size: 26,
+              Icons.library_music_rounded,
+              size: 24,
             ),
             label: 'Library',
             tooltip: '',

@@ -1157,8 +1157,8 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                         .doc(user.uid)
                                         .update(userCreateData);
 
-                                    _navigate = () => context.goNamedAuth(
-                                        'freeHomePage', mounted);
+                                    _navigate = () =>
+                                        context.goNamedAuth('search', mounted);
                                   } else {
                                     await showDialog(
                                       context: context,

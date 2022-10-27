@@ -71,8 +71,8 @@ class _CreateTrackWidgetState extends State<CreateTrackWidget> {
             color: Colors.white,
             size: 30,
           ),
-          onPressed: () async {
-            context.pushNamed('albums');
+          onPressed: () {
+            print('IconButton pressed ...');
           },
         ),
         title: Text(
@@ -495,10 +495,12 @@ class _CreateTrackWidgetState extends State<CreateTrackWidget> {
                                       linkUrl: urlFieldController!.text,
                                       albumRef: widget.albumRef!.reference,
                                       img: uploadedFileUrl,
-                                      artist: artistFieldController!.text,
                                       listeningNotes:
                                           listeningNotesFieldController!.text,
                                       category: dropDownValue,
+                                      description: '',
+                                      collections: '',
+                                      speaker: artistFieldController!.text,
                                     );
                                     await TracksRecord.collection
                                         .doc()

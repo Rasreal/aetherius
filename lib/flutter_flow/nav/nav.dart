@@ -68,20 +68,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? NavBarPage() : StartPageWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : FreeHomePageCopyWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : StartPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? NavBarPage()
+              : FreeHomePageCopyWidget(),
           routes: [
             FFRoute(
               name: 'freeHomePage',
               path: 'freeHomePage',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'freeHomePage')
-                  : FreeHomePageWidget(),
+              builder: (context, params) => FreeHomePageWidget(),
             ),
             FFRoute(
               name: 'paidHomePage',
@@ -97,11 +96,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => CreateTrackWidget(
                 albumRef: params.getParam('albumRef', ParamType.Document),
               ),
-            ),
-            FFRoute(
-              name: 'albums',
-              path: 'albums',
-              builder: (context, params) => AlbumsWidget(),
             ),
             FFRoute(
               name: 'createAlbum',
@@ -141,13 +135,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'libraryPage',
-              path: 'libraryPage',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'libraryPage')
-                  : LibraryPageWidget(),
-            ),
-            FFRoute(
               name: 'trackPlayerPage222',
               path: 'trackPlayerPage222',
               asyncParams: {
@@ -158,6 +145,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'libraryPage',
+              path: 'libraryPage',
+              builder: (context, params) => LibraryPageWidget(),
+            ),
+            FFRoute(
               name: 'registration',
               path: 'registration',
               builder: (context, params) => RegistrationWidget(),
@@ -166,6 +158,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'login',
               path: 'login',
               builder: (context, params) => LoginWidget(),
+            ),
+            FFRoute(
+              name: 'freeHomePageCopy',
+              path: 'freeHomePageCopy',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'freeHomePageCopy')
+                  : FreeHomePageCopyWidget(),
+            ),
+            FFRoute(
+              name: 'librDummyPage',
+              path: 'librDummyPage',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'librDummyPage')
+                  : LibrDummyPageWidget(),
+            ),
+            FFRoute(
+              name: 'trackList',
+              path: 'trackList',
+              builder: (context, params) => TrackListWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -325,7 +336,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/startPage';
+            return '/freeHomePageCopy';
           }
           return null;
         },
