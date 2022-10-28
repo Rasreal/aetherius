@@ -354,13 +354,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      color: FlutterFlowTheme.of(context).primaryColor,
-                    ),
+              ? Container(
+                  color: Colors.black,
+                  child: Image.asset(
+                    'assets/images/Logo_aetherius.png',
+                    fit: BoxFit.contain,
                   ),
                 )
               : page;
