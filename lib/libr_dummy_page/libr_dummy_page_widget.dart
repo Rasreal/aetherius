@@ -22,7 +22,7 @@ class _LibrDummyPageWidgetState extends State<LibrDummyPageWidget> {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         title: Text(
-          'Dummy Page',
+          'Dummy Library Page',
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
                 color: Colors.white,

@@ -47,8 +47,8 @@ class _TrackListWidgetState extends State<TrackListWidget> {
             color: FlutterFlowTheme.of(context).primaryBtnText,
             size: 30,
           ),
-          onPressed: () {
-            print('IconButton pressed ...');
+          onPressed: () async {
+            context.pop();
           },
         ),
         title: Text(
@@ -152,106 +152,124 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                     _pagingController!.itemList![listViewIndex];
                 return Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(15, 10, 15, 14),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Image.network(
-                            listViewTracksRecord.img!,
-                            width: 42,
-                            height: 42,
-                            fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () async {
+                      context.pushNamed(
+                        'trackPlayerPage222',
+                        queryParams: {
+                          'track': serializeParam(
+                            listViewTracksRecord,
+                            ParamType.Document,
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  listViewTracksRecord.name!,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SF pro',
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                Text(
-                                  listViewTracksRecord.speaker!,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SF pro',
-                                        color: Color(0xFFB4B4B4),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ],
+                        }.withoutNulls,
+                        extra: <String, dynamic>{
+                          'track': listViewTracksRecord,
+                        },
+                      );
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Image.network(
+                              listViewTracksRecord.img!,
+                              width: 42,
+                              height: 42,
+                              fit: BoxFit.cover,
                             ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 40,
-                            icon: Icon(
-                              Icons.check_circle,
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
-                              size: 25,
-                            ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
-                            },
-                          ),
-                          FlutterFlowIconButton(
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 40,
-                            icon: Icon(
-                              Icons.favorite_sharp,
-                              color: valueOrDefault<Color>(
-                                listViewTracksRecord.fav == true
-                                    ? Color(0xFFF32929)
-                                    : FlutterFlowTheme.of(context)
-                                        .primaryBtnText,
-                                Colors.white,
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    listViewTracksRecord.name!,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'SF pro',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                  Text(
+                                    listViewTracksRecord.speaker!,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'SF pro',
+                                          color: Color(0xFFB4B4B4),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                ],
                               ),
-                              size: 25,
                             ),
-                            onPressed: () async {
-                              if (listViewTracksRecord.fav == false) {
-                                final tracksUpdateData = createTracksRecordData(
-                                  fav: true,
-                                );
-                                await listViewTracksRecord.reference
-                                    .update(tracksUpdateData);
-                              } else {
-                                final tracksUpdateData = createTracksRecordData(
-                                  fav: false,
-                                );
-                                await listViewTracksRecord.reference
-                                    .update(tracksUpdateData);
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30,
+                              borderWidth: 1,
+                              buttonSize: 40,
+                              icon: Icon(
+                                Icons.check_circle,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryBtnText,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                print('IconButton pressed ...');
+                              },
+                            ),
+                            FlutterFlowIconButton(
+                              borderRadius: 30,
+                              borderWidth: 1,
+                              buttonSize: 40,
+                              icon: Icon(
+                                Icons.favorite_sharp,
+                                color: valueOrDefault<Color>(
+                                  listViewTracksRecord.fav == true
+                                      ? Color(0xFFF32929)
+                                      : FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                  Colors.white,
+                                ),
+                                size: 25,
+                              ),
+                              onPressed: () async {
+                                if (listViewTracksRecord.fav == false) {
+                                  final tracksUpdateData =
+                                      createTracksRecordData(
+                                    fav: true,
+                                  );
+                                  await listViewTracksRecord.reference
+                                      .update(tracksUpdateData);
+                                } else {
+                                  final tracksUpdateData =
+                                      createTracksRecordData(
+                                    fav: false,
+                                  );
+                                  await listViewTracksRecord.reference
+                                      .update(tracksUpdateData);
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

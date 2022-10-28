@@ -37,20 +37,6 @@ class _SearchWidgetState extends State<SearchWidget> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.home_rounded,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            context.pushNamed('freeHomePage');
-          },
-        ),
         title: Text(
           'Search',
           style: FlutterFlowTheme.of(context).title2.override(
@@ -220,6 +206,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         listViewTracksRecord

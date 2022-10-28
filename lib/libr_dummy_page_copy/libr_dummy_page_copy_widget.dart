@@ -23,7 +23,7 @@ class _LibrDummyPageCopyWidgetState extends State<LibrDummyPageCopyWidget> {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         title: Text(
-          'Dummy Page',
+          'Dummy Search Page',
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
                 color: Colors.white,
