@@ -159,6 +159,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
+                                        maxLines: null,
                                       ),
                                     ),
                                   ),

@@ -1,7 +1,9 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,9 +54,11 @@ class _TrackListWidgetState extends State<TrackListWidget> {
         title: Text(
           'Start listening for free',
           style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
+                fontFamily: 'SF pro',
+                color: FlutterFlowTheme.of(context).primaryBtnText,
                 fontSize: 20,
+                fontWeight: FontWeight.bold,
+                useGoogleFonts: false,
               ),
         ),
         actions: [
@@ -156,7 +160,7 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Image.network(
-                            'https://picsum.photos/seed/198/600',
+                            listViewTracksRecord.img!,
                             width: 42,
                             height: 42,
                             fit: BoxFit.cover,
@@ -166,15 +170,17 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                                 EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   listViewTracksRecord.name!,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBtnText,
+                                        fontFamily: 'SF pro',
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        useGoogleFonts: false,
                                       ),
                                 ),
                                 Text(
@@ -182,9 +188,11 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
-                                        fontFamily: 'Poppins',
+                                        fontFamily: 'SF pro',
                                         color: Color(0xFFB4B4B4),
                                         fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        useGoogleFonts: false,
                                       ),
                                 ),
                               ],
@@ -211,18 +219,34 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                             },
                           ),
                           FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
                             borderRadius: 30,
                             borderWidth: 1,
                             buttonSize: 40,
                             icon: Icon(
-                              Icons.favorite_border,
-                              color:
-                                  FlutterFlowTheme.of(context).primaryBtnText,
+                              Icons.favorite_sharp,
+                              color: valueOrDefault<Color>(
+                                listViewTracksRecord.fav == true
+                                    ? Color(0xFFF32929)
+                                    : FlutterFlowTheme.of(context)
+                                        .primaryBtnText,
+                                Colors.white,
+                              ),
                               size: 25,
                             ),
-                            onPressed: () {
-                              print('IconButton pressed ...');
+                            onPressed: () async {
+                              if (listViewTracksRecord.fav == false) {
+                                final tracksUpdateData = createTracksRecordData(
+                                  fav: true,
+                                );
+                                await listViewTracksRecord.reference
+                                    .update(tracksUpdateData);
+                              } else {
+                                final tracksUpdateData = createTracksRecordData(
+                                  fav: false,
+                                );
+                                await listViewTracksRecord.reference
+                                    .update(tracksUpdateData);
+                              }
                             },
                           ),
                         ],

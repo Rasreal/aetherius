@@ -98,6 +98,13 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.fav;
+    if (value != null) {
+      result
+        ..add('fav')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -167,6 +174,10 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
           result.length = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'fav':
+          result.fav = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -204,6 +215,8 @@ class _$TracksRecord extends TracksRecord {
   @override
   final String? length;
   @override
+  final bool? fav;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TracksRecord([void Function(TracksRecordBuilder)? updates]) =>
@@ -221,6 +234,7 @@ class _$TracksRecord extends TracksRecord {
       this.recommendation,
       this.speaker,
       this.length,
+      this.fav,
       this.ffRef})
       : super._();
 
@@ -246,6 +260,7 @@ class _$TracksRecord extends TracksRecord {
         recommendation == other.recommendation &&
         speaker == other.speaker &&
         length == other.length &&
+        fav == other.fav &&
         ffRef == other.ffRef;
   }
 
@@ -261,17 +276,19 @@ class _$TracksRecord extends TracksRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, name.hashCode),
-                                                albumRef.hashCode),
-                                            linkUrl.hashCode),
-                                        img.hashCode),
-                                    listeningNotes.hashCode),
-                                category.hashCode),
-                            description.hashCode),
-                        collections.hashCode),
-                    recommendation.hashCode),
-                speaker.hashCode),
-            length.hashCode),
+                                            $jc(
+                                                $jc($jc(0, name.hashCode),
+                                                    albumRef.hashCode),
+                                                linkUrl.hashCode),
+                                            img.hashCode),
+                                        listeningNotes.hashCode),
+                                    category.hashCode),
+                                description.hashCode),
+                            collections.hashCode),
+                        recommendation.hashCode),
+                    speaker.hashCode),
+                length.hashCode),
+            fav.hashCode),
         ffRef.hashCode));
   }
 
@@ -289,6 +306,7 @@ class _$TracksRecord extends TracksRecord {
           ..add('recommendation', recommendation)
           ..add('speaker', speaker)
           ..add('length', length)
+          ..add('fav', fav)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -345,6 +363,10 @@ class TracksRecordBuilder
   String? get length => _$this._length;
   set length(String? length) => _$this._length = length;
 
+  bool? _fav;
+  bool? get fav => _$this._fav;
+  set fav(bool? fav) => _$this._fav = fav;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -367,6 +389,7 @@ class TracksRecordBuilder
       _recommendation = $v.recommendation;
       _speaker = $v.speaker;
       _length = $v.length;
+      _fav = $v.fav;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -401,6 +424,7 @@ class TracksRecordBuilder
             recommendation: recommendation,
             speaker: speaker,
             length: length,
+            fav: fav,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

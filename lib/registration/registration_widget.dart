@@ -228,6 +228,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
+                              maxLines: null,
                             ),
                             Padding(
                               padding:
@@ -293,6 +294,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
+                                maxLines: null,
                                 keyboardType: TextInputType.emailAddress,
                               ),
                             ),
@@ -499,6 +501,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
+                                maxLines: null,
                                 keyboardType: TextInputType.visiblePassword,
                               ),
                             ),
@@ -580,6 +583,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
+                                maxLines: null,
                                 keyboardType: TextInputType.visiblePassword,
                               ),
                             ),
@@ -750,6 +754,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
+                                maxLines: null,
                               ),
                             ),
                             Row(
@@ -1111,6 +1116,7 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
                                     ),
+                                maxLines: null,
                               ),
                             ),
                             Padding(
@@ -1157,8 +1163,8 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                         .doc(user.uid)
                                         .update(userCreateData);
 
-                                    _navigate = () =>
-                                        context.goNamedAuth('search', mounted);
+                                    _navigate = () => context.goNamedAuth(
+                                        'librDummyPage', mounted);
                                   } else {
                                     await showDialog(
                                       context: context,

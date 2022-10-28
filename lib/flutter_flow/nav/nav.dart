@@ -118,13 +118,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'search',
-              path: 'search',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'search')
-                  : SearchWidget(),
-            ),
-            FFRoute(
               name: 'trackPlayerPage',
               path: 'trackPlayerPage',
               asyncParams: {
@@ -133,6 +126,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => TrackPlayerPageWidget(
                 track: params.getParam('track', ParamType.Document),
               ),
+            ),
+            FFRoute(
+              name: 'search',
+              path: 'search',
+              builder: (context, params) => SearchWidget(),
             ),
             FFRoute(
               name: 'trackPlayerPage222',
@@ -167,6 +165,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : FreeHomePageCopyWidget(),
             ),
             FFRoute(
+              name: 'trackList',
+              path: 'trackList',
+              builder: (context, params) => TrackListWidget(),
+            ),
+            FFRoute(
               name: 'librDummyPage',
               path: 'librDummyPage',
               builder: (context, params) => params.isEmpty
@@ -174,9 +177,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : LibrDummyPageWidget(),
             ),
             FFRoute(
-              name: 'trackList',
-              path: 'trackList',
-              builder: (context, params) => TrackListWidget(),
+              name: 'librDummyPageCopy',
+              path: 'librDummyPageCopy',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'librDummyPageCopy')
+                  : LibrDummyPageCopyWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

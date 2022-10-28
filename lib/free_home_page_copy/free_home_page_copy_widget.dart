@@ -24,7 +24,7 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         leading: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
           child: Image.asset(
             'assets/images/Logo_aetherius.png',
             width: 140,
@@ -35,13 +35,18 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
         title: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(
-              'Welcome',
-              style: FlutterFlowTheme.of(context).title2.override(
-                    fontFamily: 'Poppins',
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+              child: Text(
+                'Welcome',
+                style: FlutterFlowTheme.of(context).title1.override(
+                      fontFamily: 'SF pro',
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      useGoogleFonts: false,
+                    ),
+              ),
             ),
           ],
         ),
@@ -52,9 +57,9 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
             borderWidth: 1,
             buttonSize: 60,
             icon: Icon(
-              Icons.settings,
+              Icons.person,
               color: Colors.white,
-              size: 25,
+              size: 24,
             ),
             onPressed: () {
               print('IconButton pressed ...');
@@ -91,12 +96,14 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                               Text(
                                 'Start listening for free',
                                 style: FlutterFlowTheme.of(context)
-                                    .title1
+                                    .title2
                                     .override(
-                                      fontFamily: 'Poppins',
+                                      fontFamily: 'SF pro',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
-                                      fontSize: 16,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      useGoogleFonts: false,
                                     ),
                               ),
                               Padding(
@@ -124,17 +131,13 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                         Expanded(
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 22, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
                                   child: StreamBuilder<List<TracksRecord>>(
-                                    stream: queryTracksRecord(
-                                      queryBuilder: (tracksRecord) =>
-                                          tracksRecord.where('category',
-                                              isEqualTo: 'Enlightenment'),
-                                    ),
+                                    stream: queryTracksRecord(),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
                                       if (!snapshot.hasData) {
@@ -169,7 +172,18 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                                             child: InkWell(
                                               onTap: () async {
                                                 context.pushNamed(
-                                                    'trackPlayerPage222');
+                                                  'trackPlayerPage222',
+                                                  queryParams: {
+                                                    'track': serializeParam(
+                                                      listViewTracksRecord,
+                                                      ParamType.Document,
+                                                    ),
+                                                  }.withoutNulls,
+                                                  extra: <String, dynamic>{
+                                                    'track':
+                                                        listViewTracksRecord,
+                                                  },
+                                                );
                                               },
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
@@ -197,20 +211,24 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                                                             .fromSTEB(
                                                                 0, 5, 0, 0),
                                                     child: Text(
-                                                      listViewTracksRecord
-                                                          .name!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Poppins',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryBtnText,
-                                                                fontSize: 12,
-                                                              ),
+                                                      listViewTracksRecord.name!
+                                                          .maybeHandleOverflow(
+                                                        maxChars: 12,
+                                                        replacement: '…',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyText1
+                                                          .override(
+                                                            fontFamily:
+                                                                'SF pro',
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            useGoogleFonts:
+                                                                false,
+                                                          ),
                                                     ),
                                                   ),
                                                   Text(
@@ -219,10 +237,13 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                                                             context)
                                                         .bodyText1
                                                         .override(
-                                                          fontFamily: 'Poppins',
+                                                          fontFamily: 'SF pro',
                                                           color:
                                                               Color(0xFFB4B4B4),
                                                           fontSize: 10,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          useGoogleFonts: false,
                                                         ),
                                                   ),
                                                 ],

@@ -115,24 +115,33 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(60, 20, 80, 0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/146/600',
-                                  width: 200,
-                                  height: 200,
-                                  fit: BoxFit.fitHeight,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      60, 20, 80, 0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(0),
+                                    child: Image.network(
+                                      widget.track!.img!,
+                                      width: 200,
+                                      height: 200,
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                               child: Text(
-                                widget.track!.name!,
+                                valueOrDefault<String>(
+                                  widget.track!.name,
+                                  'Track Name',
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText1
                                     .override(
@@ -243,7 +252,7 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                                     audio: Audio.network(
                                       widget.track!.linkUrl!,
                                       metas: Metas(
-                                        id: 'sample3.mp3-zp5tdwln',
+                                        id: 'sample3.mp3-j2i2zqg3',
                                       ),
                                     ),
                                     titleTextStyle: FlutterFlowTheme.of(context)

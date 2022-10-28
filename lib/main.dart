@@ -100,7 +100,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'search';
+  String _currentPageName = 'librDummyPage';
   late Widget? _currentPage;
 
   @override
@@ -114,8 +114,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'freeHomePageCopy': FreeHomePageCopyWidget(),
-      'search': SearchWidget(),
       'librDummyPage': LibrDummyPageWidget(),
+      'librDummyPageCopy': LibrDummyPageCopyWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -130,12 +130,12 @@ class _NavBarPageState extends State<NavBarPage> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Color(0xFFAEAEAE),
         showSelectedLabels: true,
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home_outlined,
+              Icons.home_filled,
               size: 22,
             ),
             activeIcon: Icon(
