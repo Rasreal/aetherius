@@ -15,6 +15,8 @@ class FFAppState {
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
     _downloaded = prefs.getBool('ff_downloaded') ?? _downloaded;
+    _downloaded2 = prefs.getBool('ff_downloaded2') ?? _downloaded2;
+    _downloaded3 = prefs.getBool('ff_downloaded3') ?? _downloaded3;
   }
 
   late SharedPreferences prefs;
@@ -41,6 +43,20 @@ class FFAppState {
   String displayName = '';
 
   int step = 1;
+
+  bool _downloaded2 = false;
+  bool get downloaded2 => _downloaded2;
+  set downloaded2(bool _value) {
+    _downloaded2 = _value;
+    prefs.setBool('ff_downloaded2', _value);
+  }
+
+  bool _downloaded3 = false;
+  bool get downloaded3 => _downloaded3;
+  set downloaded3(bool _value) {
+    _downloaded3 = _value;
+    prefs.setBool('ff_downloaded3', _value);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

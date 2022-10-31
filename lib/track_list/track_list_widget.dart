@@ -229,8 +229,8 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                                     FlutterFlowTheme.of(context).primaryBtnText,
                                 size: 25,
                               ),
-                              onPressed: () {
-                                print('IconButton pressed ...');
+                              onPressed: () async {
+                                setState(() => FFAppState().downloaded = true);
                               },
                             ),
                             FlutterFlowIconButton(

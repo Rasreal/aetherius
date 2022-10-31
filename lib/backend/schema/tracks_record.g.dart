@@ -105,6 +105,13 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.downloaded;
+    if (value != null) {
+      result
+        ..add('downloaded')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -178,6 +185,10 @@ class _$TracksRecordSerializer implements StructuredSerializer<TracksRecord> {
           result.fav = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
+        case 'downloaded':
+          result.downloaded = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -217,6 +228,8 @@ class _$TracksRecord extends TracksRecord {
   @override
   final bool? fav;
   @override
+  final bool? downloaded;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TracksRecord([void Function(TracksRecordBuilder)? updates]) =>
@@ -235,6 +248,7 @@ class _$TracksRecord extends TracksRecord {
       this.speaker,
       this.length,
       this.fav,
+      this.downloaded,
       this.ffRef})
       : super._();
 
@@ -261,6 +275,7 @@ class _$TracksRecord extends TracksRecord {
         speaker == other.speaker &&
         length == other.length &&
         fav == other.fav &&
+        downloaded == other.downloaded &&
         ffRef == other.ffRef;
   }
 
@@ -277,18 +292,20 @@ class _$TracksRecord extends TracksRecord {
                                     $jc(
                                         $jc(
                                             $jc(
-                                                $jc($jc(0, name.hashCode),
-                                                    albumRef.hashCode),
-                                                linkUrl.hashCode),
-                                            img.hashCode),
-                                        listeningNotes.hashCode),
-                                    category.hashCode),
-                                description.hashCode),
-                            collections.hashCode),
-                        recommendation.hashCode),
-                    speaker.hashCode),
-                length.hashCode),
-            fav.hashCode),
+                                                $jc(
+                                                    $jc($jc(0, name.hashCode),
+                                                        albumRef.hashCode),
+                                                    linkUrl.hashCode),
+                                                img.hashCode),
+                                            listeningNotes.hashCode),
+                                        category.hashCode),
+                                    description.hashCode),
+                                collections.hashCode),
+                            recommendation.hashCode),
+                        speaker.hashCode),
+                    length.hashCode),
+                fav.hashCode),
+            downloaded.hashCode),
         ffRef.hashCode));
   }
 
@@ -307,6 +324,7 @@ class _$TracksRecord extends TracksRecord {
           ..add('speaker', speaker)
           ..add('length', length)
           ..add('fav', fav)
+          ..add('downloaded', downloaded)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -367,6 +385,10 @@ class TracksRecordBuilder
   bool? get fav => _$this._fav;
   set fav(bool? fav) => _$this._fav = fav;
 
+  bool? _downloaded;
+  bool? get downloaded => _$this._downloaded;
+  set downloaded(bool? downloaded) => _$this._downloaded = downloaded;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -390,6 +412,7 @@ class TracksRecordBuilder
       _speaker = $v.speaker;
       _length = $v.length;
       _fav = $v.fav;
+      _downloaded = $v.downloaded;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -425,6 +448,7 @@ class TracksRecordBuilder
             speaker: speaker,
             length: length,
             fav: fav,
+            downloaded: downloaded,
             ffRef: ffRef);
     replace(_$result);
     return _$result;
