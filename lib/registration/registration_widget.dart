@@ -228,7 +228,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context).bodyText1,
-                              maxLines: null,
                             ),
                             Padding(
                               padding:
@@ -294,7 +293,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
-                                maxLines: null,
                                 keyboardType: TextInputType.emailAddress,
                               ),
                             ),
@@ -501,7 +499,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
-                                maxLines: null,
                                 keyboardType: TextInputType.visiblePassword,
                               ),
                             ),
@@ -583,7 +580,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
-                                maxLines: null,
                                 keyboardType: TextInputType.visiblePassword,
                               ),
                             ),
@@ -754,7 +750,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
                                     ),
-                                maxLines: null,
                               ),
                             ),
                             Row(
@@ -1116,7 +1111,6 @@ class _RegistrationWidgetState extends State<RegistrationWidget> {
                                       fontFamily: 'Poppins',
                                       color: Colors.white,
                                     ),
-                                maxLines: null,
                               ),
                             ),
                             Padding(

@@ -34,6 +34,8 @@ abstract class TracksRecord
 
   bool? get fav;
 
+  bool? get downloaded;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -49,7 +51,8 @@ abstract class TracksRecord
     ..recommendation = ''
     ..speaker = ''
     ..length = ''
-    ..fav = false;
+    ..fav = false
+    ..downloaded = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('tracks');
@@ -85,6 +88,7 @@ Map<String, dynamic> createTracksRecordData({
   String? speaker,
   String? length,
   bool? fav,
+  bool? downloaded,
 }) {
   final firestoreData = serializers.toFirestore(
     TracksRecord.serializer,
@@ -101,7 +105,8 @@ Map<String, dynamic> createTracksRecordData({
         ..recommendation = recommendation
         ..speaker = speaker
         ..length = length
-        ..fav = fav,
+        ..fav = fav
+        ..downloaded = downloaded,
     ),
   );
 

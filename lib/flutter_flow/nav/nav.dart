@@ -182,6 +182,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'librDummyPageCopy')
                   : LibrDummyPageCopyWidget(),
+            ),
+            FFRoute(
+              name: 'downloads',
+              path: 'downloads',
+              builder: (context, params) => DownloadsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

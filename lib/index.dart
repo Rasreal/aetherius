@@ -19,3 +19,4 @@ export 'track_list/track_list_widget.dart' show TrackListWidget;
 export 'libr_dummy_page/libr_dummy_page_widget.dart' show LibrDummyPageWidget;
 export 'libr_dummy_page_copy/libr_dummy_page_copy_widget.dart'
     show LibrDummyPageCopyWidget;
+export 'downloads/downloads_widget.dart' show DownloadsWidget;

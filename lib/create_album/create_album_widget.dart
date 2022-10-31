@@ -144,7 +144,6 @@ class _CreateAlbumWidgetState extends State<CreateAlbumWidget> {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
-                        maxLines: null,
                       ),
                     ),
                     Text(
@@ -238,7 +237,6 @@ class _CreateAlbumWidgetState extends State<CreateAlbumWidget> {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyText1,
-                        maxLines: null,
                       ),
                     ),
                     Text(
