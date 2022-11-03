@@ -57,6 +57,8 @@ class FFAppState {
     _downloaded3 = _value;
     prefs.setBool('ff_downloaded3', _value);
   }
+
+  bool btnShare = false;
 }
 
 LatLng? _latLngFromString(String? val) {

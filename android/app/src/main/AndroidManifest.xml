@@ -47,7 +47,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="aetheriuscloud" android:host="aetheriuscloud.com" />
+                <data android:scheme="http" android:host="aetherius.page.link" />
+                <data android:scheme="https" />
             </intent-filter>
 
         </activity>

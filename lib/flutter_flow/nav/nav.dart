@@ -7,6 +7,8 @@ import '../flutter_flow_theme.dart';
 import '../../backend/backend.dart';
 import '../../auth/firebase_user_provider.dart';
 
+import '../../backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show DynamicLinksHandler;
 import '../../index.dart';
 import '../../main.dart';
 import '../lat_lng.dart';
@@ -15,6 +17,8 @@ import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
+export '../../backend/firebase_dynamic_links/firebase_dynamic_links.dart'
+    show generateCurrentPageLink;
 
 const kTransitionInfoKey = '__transition_info__';
 
@@ -69,6 +73,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
           appStateNotifier.loggedIn ? NavBarPage() : FreeHomePageCopyWidget(),
+      navigatorBuilder: (_, __, child) => DynamicLinksHandler(child: child),
       routes: [
         FFRoute(
           name: '_initialize',
@@ -134,7 +139,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             FFRoute(
               name: 'trackPlayerPage222',
-              path: 'trackPlayerPage222',
+              path: 'trackPlayerPage222/:track',
               asyncParams: {
                 'track': getDoc('tracks', TracksRecord.serializer),
               },

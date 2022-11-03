@@ -173,7 +173,7 @@ class _FreeHomePageCopyWidgetState extends State<FreeHomePageCopyWidget> {
                                               onTap: () async {
                                                 context.pushNamed(
                                                   'trackPlayerPage222',
-                                                  queryParams: {
+                                                  params: {
                                                     'track': serializeParam(
                                                       listViewTracksRecord,
                                                       ParamType.Document,

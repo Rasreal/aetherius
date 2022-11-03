@@ -85,6 +85,14 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                   DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
+    value = object.totalTimes;
+    if (value != null) {
+      result
+        ..add('total_times')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(DataStruct)])));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -146,6 +154,12 @@ class _$UserRecordSerializer implements StructuredSerializer<UserRecord> {
                     DocumentReference, const [const FullType.nullable(Object)])
               ]))! as BuiltList<Object?>);
           break;
+        case 'total_times':
+          result.totalTimes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(DataStruct)]))!
+              as BuiltList<Object?>);
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -179,6 +193,8 @@ class _$UserRecord extends UserRecord {
   @override
   final BuiltList<DocumentReference<Object?>>? likedTracks;
   @override
+  final BuiltList<DataStruct>? totalTimes;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UserRecord([void Function(UserRecordBuilder)? updates]) =>
@@ -194,6 +210,7 @@ class _$UserRecord extends UserRecord {
       this.uid,
       this.phoneNumber,
       this.likedTracks,
+      this.totalTimes,
       this.ffRef})
       : super._();
 
@@ -217,6 +234,7 @@ class _$UserRecord extends UserRecord {
         uid == other.uid &&
         phoneNumber == other.phoneNumber &&
         likedTracks == other.likedTracks &&
+        totalTimes == other.totalTimes &&
         ffRef == other.ffRef;
   }
 
@@ -230,15 +248,17 @@ class _$UserRecord extends UserRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    createdTime.hashCode),
-                                plan.hashCode),
-                            country.hashCode),
-                        photoUrl.hashCode),
-                    uid.hashCode),
-                phoneNumber.hashCode),
-            likedTracks.hashCode),
+                                    $jc(
+                                        $jc($jc(0, email.hashCode),
+                                            displayName.hashCode),
+                                        createdTime.hashCode),
+                                    plan.hashCode),
+                                country.hashCode),
+                            photoUrl.hashCode),
+                        uid.hashCode),
+                    phoneNumber.hashCode),
+                likedTracks.hashCode),
+            totalTimes.hashCode),
         ffRef.hashCode));
   }
 
@@ -254,6 +274,7 @@ class _$UserRecord extends UserRecord {
           ..add('uid', uid)
           ..add('phoneNumber', phoneNumber)
           ..add('likedTracks', likedTracks)
+          ..add('totalTimes', totalTimes)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -300,6 +321,12 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
   set likedTracks(ListBuilder<DocumentReference<Object?>>? likedTracks) =>
       _$this._likedTracks = likedTracks;
 
+  ListBuilder<DataStruct>? _totalTimes;
+  ListBuilder<DataStruct> get totalTimes =>
+      _$this._totalTimes ??= new ListBuilder<DataStruct>();
+  set totalTimes(ListBuilder<DataStruct>? totalTimes) =>
+      _$this._totalTimes = totalTimes;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -320,6 +347,7 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
       _uid = $v.uid;
       _phoneNumber = $v.phoneNumber;
       _likedTracks = $v.likedTracks?.toBuilder();
+      _totalTimes = $v.totalTimes?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -354,12 +382,15 @@ class UserRecordBuilder implements Builder<UserRecord, UserRecordBuilder> {
               uid: uid,
               phoneNumber: phoneNumber,
               likedTracks: _likedTracks?.build(),
+              totalTimes: _totalTimes?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'likedTracks';
         _likedTracks?.build();
+        _$failedField = 'totalTimes';
+        _totalTimes?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'UserRecord', _$failedField, e.toString());

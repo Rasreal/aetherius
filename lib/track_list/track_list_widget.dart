@@ -72,8 +72,31 @@ class _TrackListWidgetState extends State<TrackListWidget> {
               color: FlutterFlowTheme.of(context).primaryBtnText,
               size: 20,
             ),
-            onPressed: () {
-              print('IconButton pressed ...');
+            onPressed: () async {
+              var confirmDialogResponse = await showDialog<bool>(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: Text('Do you want to delete this track?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () =>
+                                Navigator.pop(alertDialogContext, false),
+                            child: Text('No'),
+                          ),
+                          TextButton(
+                            onPressed: () =>
+                                Navigator.pop(alertDialogContext, true),
+                            child: Text('Yes'),
+                          ),
+                        ],
+                      );
+                    },
+                  ) ??
+                  false;
+              if (confirmDialogResponse) {
+                setState(() => FFAppState().downloaded = false);
+              }
             },
           ),
         ],
@@ -156,7 +179,7 @@ class _TrackListWidgetState extends State<TrackListWidget> {
                     onTap: () async {
                       context.pushNamed(
                         'trackPlayerPage222',
-                        queryParams: {
+                        params: {
                           'track': serializeParam(
                             listViewTracksRecord,
                             ParamType.Document,

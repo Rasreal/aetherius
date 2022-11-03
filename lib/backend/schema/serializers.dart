@@ -17,6 +17,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   AlbumRecord,
   TracksRecord,
   UserRecord,
+  DataStruct,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -4,10 +4,12 @@ import '../flutter_flow/flutter_flow_audio_player.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class TrackPlayerPage222Widget extends StatefulWidget {
   const TrackPlayerPage222Widget({
@@ -23,6 +25,7 @@ class TrackPlayerPage222Widget extends StatefulWidget {
 }
 
 class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
+  String _currentPageLink = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -104,8 +107,8 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                   color: Color(0xFFE2E2E2),
                   size: 25,
                 ),
-                onPressed: () {
-                  print('IconButton pressed ...');
+                onPressed: () async {
+                  setState(() => FFAppState().btnShare = true);
                 },
               ),
             ],
@@ -117,188 +120,262 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Stack(
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                        child: Column(
+                if (FFAppState().btnShare)
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20, 20, 20, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(0),
+                                          child: Image.network(
+                                            widget.track!.img!,
+                                            width: 200,
+                                            height: 200,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 48, 0, 0),
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          widget.track!.name,
+                                          'Track Name',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'SF pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBtnText,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 2, 0, 0),
+                                      child: Text(
+                                        widget.track!.speaker!,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'SF pro',
+                                              color: Color(0xFFB4B4B4),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                    if (widget.track!.albumRef != null)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 2, 0, 0),
+                                        child: Text(
+                                          'From the ${widget.track!.category}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'SF pro',
+                                                color: Color(0xFFCBCBCB),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ),
+                                      ),
+                                    Text(
+                                      '${widget.track!.category} ${widget.track!.length}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'SF pro',
+                                            color: Color(0xFFB4B4B4),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                    Text(
+                                      widget.track!.recommendation!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'SF pro',
+                                            color: Color(0xFF909090),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            fontStyle: FontStyle.italic,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 41, 0, 0),
+                                      child: Text(
+                                        widget.track!.description!
+                                            .maybeHandleOverflow(
+                                          maxChars: 60,
+                                          replacement: '…',
+                                        ),
+                                        maxLines: 2,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'SF pro',
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 13, 0, 42),
+                                      child: Text(
+                                        widget.track!.listeningNotes!
+                                            .maybeHandleOverflow(
+                                          maxChars: 60,
+                                          replacement: '…',
+                                        ),
+                                        maxLines: 2,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'SF pro',
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                    FlutterFlowAudioPlayer(
+                                      audio: Audio.network(
+                                        widget.track!.linkUrl!,
+                                        metas: Metas(
+                                          id: 'sample3.mp3-w818877g',
+                                        ),
+                                      ),
+                                      titleTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                      playbackDurationTextStyle:
+                                          FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color: Color(0xFF9D9D9D),
+                                                fontSize: 12,
+                                              ),
+                                      fillColor: Colors.black,
+                                      playbackButtonColor: Colors.white,
+                                      activeTrackColor: Color(0xFF57636C),
+                                      elevation: 4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                if (FFAppState().btnShare)
+                  InkWell(
+                    onTap: () async {
+                      setState(() => FFAppState().btnShare = false);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 1,
+                      decoration: BoxDecoration(),
+                      child: Align(
+                        alignment: AlignmentDirectional(1, -1),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(0),
-                                  child: Image.network(
-                                    widget.track!.img!,
-                                    width: 200,
-                                    height: 200,
-                                    fit: BoxFit.fitHeight,
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    _currentPageLink =
+                                        await generateCurrentPageLink(
+                                      context,
+                                      isShortLink: false,
+                                    );
+
+                                    await Share.share(_currentPageLink);
+                                  },
+                                  text: 'Share',
+                                  options: FFButtonOptions(
+                                    width: 130,
+                                    height: 40,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                    elevation: 0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
                               ],
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 48, 0, 0),
-                              child: Text(
-                                valueOrDefault<String>(
-                                  widget.track!.name,
-                                  'Track Name',
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SF pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                              child: Text(
-                                widget.track!.speaker!,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SF pro',
-                                      color: Color(0xFFB4B4B4),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ),
-                            if (widget.track!.albumRef != null)
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                                child: Text(
-                                  'From the ${widget.track!.category}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'SF pro',
-                                        color: Color(0xFFCBCBCB),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ),
-                            Text(
-                              '${widget.track!.category} ${widget.track!.length}',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'SF pro',
-                                    color: Color(0xFFB4B4B4),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                            Text(
-                              widget.track!.recommendation!,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'SF pro',
-                                    color: Color(0xFF909090),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                    fontStyle: FontStyle.italic,
-                                    useGoogleFonts: false,
-                                  ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 41, 0, 0),
-                              child: Text(
-                                widget.track!.description!.maybeHandleOverflow(
-                                  maxChars: 60,
-                                  replacement: '…',
-                                ),
-                                maxLines: 2,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SF pro',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 13, 0, 42),
-                              child: Text(
-                                widget.track!.listeningNotes!
-                                    .maybeHandleOverflow(
-                                  maxChars: 60,
-                                  replacement: '…',
-                                ),
-                                maxLines: 2,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'SF pro',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      useGoogleFonts: false,
-                                    ),
-                              ),
-                            ),
-                            FlutterFlowAudioPlayer(
-                              audio: Audio.network(
-                                widget.track!.linkUrl!,
-                                metas: Metas(
-                                  id: 'sample3.mp3-kwg5iftr',
-                                ),
-                              ),
-                              titleTextStyle: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              playbackDurationTextStyle:
-                                  FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF9D9D9D),
-                                        fontSize: 12,
-                                      ),
-                              fillColor: Colors.black,
-                              playbackButtonColor: Colors.white,
-                              activeTrackColor: Color(0xFF57636C),
-                              elevation: 4,
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
               ],
             ),
           ),

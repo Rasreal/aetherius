@@ -133,7 +133,7 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                       onTap: () async {
                                         context.pushNamed(
                                           'trackPlayerPage222',
-                                          queryParams: {
+                                          params: {
                                             'track': serializeParam(
                                               listViewTracksRecord,
                                               ParamType.Document,
@@ -161,7 +161,7 @@ class _AlbumPageWidgetState extends State<AlbumPageWidget> {
                                             audio: Audio.network(
                                               listViewTracksRecord.linkUrl!,
                                               metas: Metas(
-                                                id: 'sample3.mp3-pa0bizs2',
+                                                id: 'sample3.mp3-p9ohxnjr',
                                                 title:
                                                     listViewTracksRecord.name,
                                               ),
