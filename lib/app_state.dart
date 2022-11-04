@@ -19,11 +19,27 @@ class FFAppState {
 
   late SharedPreferences prefs;
 
-  String audioTemp = '';
+  String audioTemp1 = '';
+  String audioTemp2 = '';
+  String audioTemp3 = '';
 
   bool _downloaded = false;
   bool get downloaded => _downloaded;
   set downloaded(bool _value) {
+    _downloaded = _value;
+    prefs.setBool('ff_downloaded', _value);
+  }
+
+  bool _downloaded2 = false;
+  bool get downloaded2 => _downloaded2;
+  set downloaded2(bool _value) {
+    _downloaded = _value;
+    prefs.setBool('ff_downloaded', _value);
+  }
+
+  bool _downloaded3 = false;
+  bool get downloaded3 => _downloaded3;
+  set downloaded3(bool _value) {
     _downloaded = _value;
     prefs.setBool('ff_downloaded', _value);
   }

@@ -29,7 +29,7 @@
             <key>CFBundleURLSchemes</key>
             <array>
                 <string>com.googleusercontent.apps.730609678706-c93r7umqsjh04b2ikafn1620tghpaphd</string>
-                
+
             </array>
         </dict>
 
@@ -37,10 +37,10 @@
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
         <key>CFBundleURLName</key>
-        <string>aetheriuscloud.com</string>
+        <string>aetherius_cloud</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>aetheriuscloud</string>
+        <string>com.weloveflutterflow.aetherius</string>
         </array>
         </dict>
     </array>
@@ -80,7 +80,5 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 </dict>
 </plist>

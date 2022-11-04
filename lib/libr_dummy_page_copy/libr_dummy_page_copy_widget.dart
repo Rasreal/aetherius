@@ -1,3 +1,5 @@
+import 'package:aetherius_cloud/libr_dummy_page_copy/downloads_page.dart';
+
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +56,14 @@ class _LibrDummyPageCopyWidgetState extends State<LibrDummyPageCopyWidget> {
                             fontSize: 24,
                           ),
                     ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DownloadsPage()));
+                        },
+                        child: Text("Tap me to check donwload folder")),
                   ],
                 ),
               ),

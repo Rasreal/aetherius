@@ -18,6 +18,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../libr_dummy_page_copy/downloads_page.dart';
+
+String localPath = '';
+
 class TrackPlayerPage222Widget extends StatefulWidget {
   const TrackPlayerPage222Widget({
     Key? key,
@@ -36,6 +40,9 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
   bool downloading = false;
   bool downloaded = false;
   double percent = 0;
+
+  String localPath = '';
+  String localPath2 = '';
 
   double percentCirc = 0;
 
@@ -71,6 +78,28 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
         color: Color(0xFF464646),
         size: 30,
       );
+  }
+
+  String checkTrack() {
+    if (widget.track!.name == "Man's Mind") {
+      if (FFAppState().downloaded == true) {
+        return FFAppState().audioTemp1;
+      } else {
+        return widget.track!.linkUrl!;
+      }
+    } else if (widget.track!.name == "The Devic Kingdom") {
+      if (FFAppState().downloaded2 == true) {
+        return FFAppState().audioTemp2;
+      } else {
+        return widget.track!.linkUrl!;
+      }
+    } else {
+      if (FFAppState().downloaded3 == true) {
+        return FFAppState().audioTemp3;
+      } else {
+        return widget.track!.linkUrl!;
+      }
+    }
   }
 
   @override
@@ -117,7 +146,9 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                   if (statuses[Permission.storage]!.isGranted) {
                     Directory? dir1;
                     if (Platform.isIOS) {
-                      dir1 = await getApplicationDocumentsDirectory();
+                      //dir1 = await getApplicationDocumentsDirectory();
+
+                      dir1 = await getLibraryDirectory();
                     } else {
                       dir1 = await getExternalStorageDirectory();
                     }
@@ -125,8 +156,19 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                     String src = dir1!.path;
 
                     print(src);
-                    String savePath = dir1.path + "/${widget.track!.name}";
+                    String savePath =
+                        dir1.path + "/${widget.track!.name}" + ".m4a";
+
+                    savePath = savePath.replaceAll(" ", "_");
                     print(savePath);
+                    localPath = savePath;
+                    localPath2 = savePath.replaceAll(".m4a", "");
+
+                    File a = File.fromUri(Uri.parse(localPath));
+                    //
+                    print(a.absolute);
+
+                    //savePath = "assets/audios/";
 
                     if (downloading == false && downloaded == false) {
                       try {
@@ -137,7 +179,7 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                           });
                           percent = (received / total * 100);
                           percentCirc = (received / total);
-                          print(percentCirc);
+                          //print(percentCirc);
 
                           if (total != -1) {
                             if (percent == 12 ||
@@ -154,9 +196,30 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                           }
                         });
                         setState(() {
+                          if (widget.track!.name == "Man's Mind") {
+                            FFAppState().downloaded = true;
+                            FFAppState().audioTemp1 = localPath;
+                          } else if (widget.track!.name ==
+                              "The Devic Kingdom") {
+                            FFAppState().downloaded2 = true;
+                            FFAppState().audioTemp2 = localPath;
+                          } else {
+                            FFAppState().downloaded3 = true;
+                            FFAppState().audioTemp3 = localPath;
+                          }
+
+                          FFAppState().downloaded = true;
+                          FFAppState().audioTemp1 = localPath;
+
                           downloading = false;
                           downloaded = true;
                         });
+                        Uri uri = Uri.parse(savePath);
+                        String localUri = uri.toString();
+                        print(localUri);
+
+                        bool bb = await a.exists();
+                        print("File eists: " + bb.toString());
                         print("File is saved to download folder.");
                       } on DioError catch (e) {
                         print(e.message);
@@ -188,17 +251,21 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                   size: 30,
                 ),
                 onPressed: () async {
-                  if (widget.track!.fav == false) {
-                    final tracksUpdateData = createTracksRecordData(
-                      fav: true,
-                    );
-                    await widget.track!.reference.update(tracksUpdateData);
-                  } else {
-                    final tracksUpdateData = createTracksRecordData(
-                      fav: false,
-                    );
-                    await widget.track!.reference.update(tracksUpdateData);
-                  }
+                  // setState(() async {
+                  //   if (widget.track!.fav == false) {
+                  //     final tracksUpdateData = createTracksRecordData(
+                  //       fav: true,
+                  //     );
+                  //
+                  //     await widget.track!.update(tracksUpdateData);
+                  //     widget.track.reference
+                  //   } else {
+                  //     final tracksUpdateData = createTracksRecordData(
+                  //       fav: false,
+                  //     );
+                  //     await widget.track!.reference.update(tracksUpdateData);
+                  //   }
+                  // });
                 },
               ),
               FlutterFlowIconButton(
@@ -211,7 +278,39 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                   color: Color(0xFFE2E2E2),
                   size: 25,
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  var confirmDialogResponse = await showDialog<bool>(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('Do you want to delete this track?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, false),
+                                child: Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext, true),
+                                child: Text('Yes'),
+                              ),
+                            ],
+                          );
+                        },
+                      ) ??
+                      false;
+                  if (confirmDialogResponse) {
+                    setState(() {
+                      if (widget.track!.name == "Man's Mind") {
+                        FFAppState().downloaded = false;
+                      } else if (widget.track!.name == "The Devic Kingdom") {
+                        FFAppState().downloaded2 = false;
+                      } else {
+                        FFAppState().downloaded3 = false;
+                      }
+                    });
+                  }
                   print('IconButton pressed ...');
                 },
               ),
@@ -244,7 +343,7 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(0),
+                                  borderRadius: BorderRadius.circular(13),
                                   child: Image.network(
                                     widget.track!.img!,
                                     width: 200,
@@ -376,7 +475,9 @@ class _TrackPlayerPage222WidgetState extends State<TrackPlayerPage222Widget> {
                             ),
                             AudioPlayerFRG(
                               audio: Audio.network(
-                                widget.track!.linkUrl!,
+                                FFAppState().downloaded == true
+                                    ? FFAppState().audioTemp1
+                                    : widget.track!.linkUrl!,
                                 metas: Metas(
                                   id: 'sample3.mp3-7e0u3r41',
                                 ),
